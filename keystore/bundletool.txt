@@ -1,0 +1,9 @@
+* Generate APKs
+bundletool build-apks --bundle=/Users/tatruong/Desktop/smartthanhhoa.aab --output=/Users/tatruong/Desktop/smartthanhhoa.apks
+--ks=keystore/smartthanhhoa.jks
+--ks-pass=pass:c25b89cf656748b2a120f38f08f27f7b
+--ks-key-alias=QHRoaW5rbGFicy9zbWFydHRoYW5oaG9h
+--key-pass=pass:fc025f03687247029dd14689e0810e07
+
+* Install APKs
+bundletool install-apks --apks=/Users/tatruong/Desktop/smartthanhhoa.apks

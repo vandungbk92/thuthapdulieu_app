@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "700700308842",
+    "firebase_url": "https://smart-thanh-hoa.firebaseio.com",
+    "project_id": "smart-thanh-hoa",
+    "storage_bucket": "smart-thanh-hoa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700700308842:android:4d6f9ab0bad74691e32113",
+        "android_client_info": {
+          "package_name": "vn.appsmart.tinhthanhhoa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "700700308842-954bha7m6k789inmnvcfsenivr3t28ju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIXOsdmqLDzDo0f2to28kKYS3DkOJaQ5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "700700308842-954bha7m6k789inmnvcfsenivr3t28ju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,6 @@
+Keystore credentials
+  Keystore password: c25b89cf656748b2a120f38f08f27f7b
+  Key alias:         QHRoaW5rbGFicy9zbWFydHRoYW5oaG9h
+  Key password:      fc025f03687247029dd14689e0810e07
+
+  Path to Keystore:  E:\ncovid\app\smartthanhhoa.jks

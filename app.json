@@ -1,0 +1,79 @@
+{
+  "expo": {
+    "name": "SmartThanhHoa",
+    "description": "SmartThanhHoa",
+    "slug": "smartthanhhoa",
+    "privacy": "unlisted",
+    "version": "1.1.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "orientation": "portrait",
+    "primaryColor": "#ffa807",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#ffa807"
+    },
+    "ios": {
+      "bundleIdentifier": "vn.appsmart.tinhthanhhoa",
+      "buildNumber": "1.0.0",
+      "icon": "./assets/iconapp/icon.ios.png",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.214595902847-uqj5dtrprekdgvefebdcbk7septvv88a"
+        },
+        "googleMapsApiKey": "AIzaSyDyUiHgntKm-_c2BrI2Ov54xz6E2jtSxUM"
+      },
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Smart Thanh Hóa sử dụng camera để thêm ảnh vào phản ánh, kiến nghị",
+        "NSPhotoLibraryUsageDescription": "Smart Thanh Hóa cần truy cập thư viện ảnh để thêm ảnh vào phản ánh, kiến nghị",
+        "NSLocationAlwaysUsageDescription": "Smart Thanh Hóa cần truy cập vị trí của bạn để xác định vị trí phản ánh, kiến nghị",
+        "NSLocationUsageDescription": "Smart Thanh Hóa cần truy cập vị trí của bạn để xác định vị trí phản ánh, kiến nghị",
+        "NSLocationWhenInUseUsageDescription": "Smart Thanh Hóa cần truy cập vị trí của bạn để xác định vị trí phản ánh, kiến nghị",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Smart Thanh Hóa cần truy cập vị trí của bạn để xác định vị trí phản ánh, kiến nghị",
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "fb770310276640580"
+            ]
+          }
+        ],
+        "FacebookAppID": "770310276640580",
+        "FacebookDisplayName": "Hệ Thống Phản Hồi Công Dân",
+        "LSApplicationQueriesSchemes": [
+          "fbapi",
+          "fb-messenger-share-api",
+          "fb-messenger-share-api",
+          "fbshareextension"
+        ]
+      },
+      "usesIcloudStorage": true
+    },
+    "android": {
+      "package": "vn.appsmart.tinhthanhhoa",
+      "versionCode": 3,
+      "useNextNotificationsApi": true,
+      "icon": "./assets/iconapp/icon.android.png",
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "CAMERA",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ],
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDyUiHgntKm-_c2BrI2Ov54xz6E2jtSxUM"
+        }
+      }
+    },
+    "splash": {
+      "image": "./assets/iconapp/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    }
+  }
+}
