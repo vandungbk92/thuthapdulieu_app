@@ -19,8 +19,7 @@ export const extendFunction = (store) => {
     }
 
     apiReq++;
-
-    config.headers["token"] = store.getState().loginRes.token
+    config.headers["Authorization"] = 'Bearer ' + store.getState().loginRes.token
     config.timeout = 30000;
     return config;
   }, function (error) {

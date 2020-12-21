@@ -1,47 +1,21 @@
-let CAMERA = require("../../assets/images/camera.png")
-let IMAGE_DEFAULT_SMALL = require("../../assets/images/no_image.png");
-let IMAGE_DEFAULT_LARGE = require("../../assets/images/no_image_large.png");
-
-let LOGO_CREATE_NEW = require("../../assets/iconhome/icon_create_new.png");
-let LOGO_RECENT = require("../../assets/iconhome/icon_recent.png");
-let LOGO_INTRODUCE = require("../../assets/iconhome/icon_introduce.png");
-let LOGO_FAVORITE = require("../../assets/iconhome/icon_favorite.png");
-let LOGO_MY_SELF = require("../../assets/iconhome/icon_myself.png");
-let LOGO_USER = require("../../assets/iconhome/icon_user.png");
-let LOGOx68PNG = require("../../assets/iconapp/tconnect.png");
+let LOGO = require("../../assets/images/logo.png");
+let LOGO_HOME = require("../../assets/images/logo.png");
 
 let IMAGE_PROFILE = require("../../assets/images/profile.png");
-let LOGO_LOGIN = require("../../assets/iconapp/logo_login.png");
-let LOGO_LOOKUP_RECORDS = require("../../assets/iconhome/icon_lookup_records.png");
-let LOGO_LOOKUP_INVOICES = require("../../assets/iconhome/icon_lookup_invoices.png");
-let BG_HOME_SCREEN = require("../../assets/images/BG.png");
-let BG_PHAN_ANH_SCREEN = require("../../assets/images/bg_screen.jpg");
-let PIN_RED = require("../../assets/images/pin_red.png")
-let PIN_ORANGE = require("../../assets/images/pin_orange.png")
-let PIN_GREEN = require("../../assets/images/pin_green.png")
 
-let WORLD_MAP = require("../../assets/images/worldmap.jpg");
-
-let LOGO_HOME = require("../../assets/images/logo.png");
-let IMAGE_CITY = require("../../assets/images/city.jpg");
-let WEATHER_1 = require("../../assets/images/1.png");
-let WEATHER_2 = require("../../assets/images/2.png");
-let WEATHER_3 = require("../../assets/images/3.png");
-let WEATHER_4 = require("../../assets/images/4.png");
-let WEATHER_5 = require("../../assets/images/5.png");
-let WEATHER_10 = require("../../assets/images/10.png");
-let WEATHER_11 = require("../../assets/images/11.png");
+let ICON_CREATE_NEW = require("../../assets/iconhome/icon_create_new.png");
+let ICON_RECENT = require("../../assets/iconhome/icon_recent.png");
+let ICON_INTRODUCE = require("../../assets/iconhome/icon_introduce.png");
+let ICON_FAVORITE = require("../../assets/iconhome/icon_favorite.png");
+let ICON_MY_SELF = require("../../assets/iconhome/icon_myself.png");
+let ICON_USER = require("../../assets/iconhome/icon_user.png");
 
 export const CONSTANTS = {
+  _CITIZEN_LOGIN_: "_CITIZEN_LOGIN_",
   CONFIRM: 'CONFIRM',
   CANCEL: 'CANCEL',
   DEF_LANGUAGE: 'vi',
   PREF_LANGUAGE: 'language',
-  PREF_DEVICE_TOKEN: 'device_token',
-  PIN_RED: PIN_RED,
-  PIN_ORANGE: PIN_ORANGE,
-  PIN_GREEN: PIN_GREEN,
-  _CITIZEN_LOGIN_: "_CITIZEN_LOGIN_",
   TIME_ZONE: '',
   PHONE_CARD_DETAIL: 'PHONE_CARD_DETAIL',
   VOUCHER_DETAIL: 'VOUCHER_DETAIL',
@@ -61,32 +35,15 @@ export const CONSTANTS = {
   LIST: "LIST",
   GRID: "GRID",
   GUEST: "GUEST",
+  LOGO: LOGO,
   LOGO_HOME: LOGO_HOME,
-  LOGO_LOGIN: LOGO_LOGIN,
-  LOGOx68PNG: LOGOx68PNG,
   IMAGE_PROFILE: IMAGE_PROFILE,
-  CAMERA: CAMERA,
-  LOGO_CREATE_NEW: LOGO_CREATE_NEW,
-  LOGO_RECENT: LOGO_RECENT,
-  LOGO_INTRODUCE: LOGO_INTRODUCE,
-  LOGO_FAVORITE: LOGO_FAVORITE,
-  LOGO_MY_SELF: LOGO_MY_SELF,
-  LOGO_USER: LOGO_USER,
-  WORLD_MAP: WORLD_MAP,
-  LOGO_LOOKUP_RECORDS: LOGO_LOOKUP_RECORDS,
-  LOGO_LOOKUP_INVOICES: LOGO_LOOKUP_INVOICES,
-  IMAGE_CITY: IMAGE_CITY,
-  IMAGE_DEFAULT_SMALL: IMAGE_DEFAULT_SMALL,
-  IMAGE_DEFAULT_LARGE: IMAGE_DEFAULT_LARGE,
-  BG_HOME_SCREEN,
-  BG_PHAN_ANH_SCREEN,
-  WEATHER_1,
-  WEATHER_2,
-  WEATHER_3,
-  WEATHER_4,
-  WEATHER_5,
-  WEATHER_10,
-  WEATHER_11,
+  ICON_CREATE_NEW: ICON_CREATE_NEW,
+  ICON_RECENT: ICON_RECENT,
+  ICON_INTRODUCE: ICON_INTRODUCE,
+  ICON_FAVORITE: ICON_FAVORITE,
+  ICON_MY_SELF: ICON_MY_SELF,
+  ICON_USER: ICON_USER,
   SUCCESS: "success",
   INFO: "info",
   ERROR: "error",

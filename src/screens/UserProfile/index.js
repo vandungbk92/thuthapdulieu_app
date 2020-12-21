@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import {RkText} from "react-native-ui-kitten";
-import {TouchableOpacity, View, ScrollView, SafeAreaView, StyleSheet} from "react-native";
+import {TouchableOpacity, View, SafeAreaView, StyleSheet} from "react-native";
 import {styleContainer} from "../../stylesContainer";
 import {CONSTANTS} from "../../constants"
-import {getUserInfo, updateUserInfo} from "../../epics-reducers/services/accountServices";
+import {getUserInfo, updateUserInfo} from "../../epics-reducers/services/userServices";
 import GradientButton from "../base/gradientButton"
 import {Ionicons} from "@expo/vector-icons";
 import {KittenTheme} from "../../../config/theme";
-import {checkValidate, showToast, ingredientData} from "../../epics-reducers/services/common";
-import {fetchLoginFailure, fetchLogoutRequest} from "../../epics-reducers/fetch/fetch-login.duck";
+import {checkValidate, showToast} from "../../epics-reducers/services/common";
+import {fetchLogoutSuccess} from "../../epics-reducers/fetch/fetch-login.duck";
 import {connect} from "react-redux"
 import FormGroup from "../base/formGroup";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -17,8 +17,6 @@ import Avatar from "../base/avatar";
 import {LOGIN_PAGE} from "../../constants/router";
 import I18n from '../../utilities/I18n';
 import KeyboardAwareScrollView from '@pietile-native-kit/keyboard-aware-scrollview';
-import {fetchTokenDecode} from "../../epics-reducers/fetch/fetch-token.duck";
-import {fetchUsersInfoFailure} from "../../epics-reducers/fetch/fetch-users-info.duck";
 
 class UserProfile extends Component {
   static navigationOptions = ({navigation}) => {
@@ -44,9 +42,6 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       userInfo: {full_name: "", email: "", phone: ""},
-      ingredient: ingredientData(),
-      ingredientSelected: ["1"],
-
       profileChanged: false,
       editable: false,
     };
@@ -64,19 +59,13 @@ class UserProfile extends Component {
 
   componentDidMount() {
     this.navigationSubscription = this.props.navigation.addListener('willFocus', async () => {
-      if (!this.props.userInfoRes || !this.props.userInfoRes._id) {
-        this.props.navigation.goBack(null);
-        this.props.navigation.navigate(LOGIN_PAGE);
-      } else {
-        let isFocused = this.props.navigation.isFocused();
-        if (isFocused) {
-          let userInfo = await getUserInfo()
-          if (userInfo) {
-            this.state.userInfo = userInfo
-            this.state.ingredientSelected = [userInfo.type]
-            this.setState(this.state)
-          } else {
-          }
+      let isFocused = this.props.navigation.isFocused();
+      if (isFocused) {
+        let userInfo = await getUserInfo()
+        if (userInfo) {
+          this.state.userInfo = userInfo
+          this.setState(this.state)
+        } else {
         }
       }
     });
@@ -98,9 +87,12 @@ class UserProfile extends Component {
     ]
     if (!checkValidate(dataValidate)) return
 
-    this.state.userInfo.type = this.state.ingredientSelected[0]
-
-    let userInfo = await updateUserInfo(this.state.userInfo)
+    let dataReq = {
+      full_name: this.state.userInfo.full_name,
+      email: this.state.userInfo.email,
+      phone: this.state.userInfo.phone,
+    }
+    let userInfo = await updateUserInfo(this.state.userInfo._id, dataReq)
     if (userInfo) {
       this.state.userInfo = userInfo
       this.state.editable = false
@@ -111,11 +103,8 @@ class UserProfile extends Component {
   }
 
   onPressLogout() {
-    this.props.dispatch(fetchLogoutRequest());
-    // this.props.dispatch(fetchLoginFailure({}))
-    // this.props.dispatch(fetchTokenDecode({}))
-    // this.props.dispatch(fetchUsersInfoFailure({}))
-    this.props.navigation.goBack(null);
+    this.props.dispatch(fetchLogoutSuccess());
+    this.props.navigation.navigate(LOGIN_PAGE);
   }
 
   changeElement(id, event) {
@@ -230,9 +219,4 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-  const {userInfoRes} = state
-  return {userInfoRes}
-}
-
-export default connect(mapStateToProps)(UserProfile);
+export default connect()(UserProfile);
