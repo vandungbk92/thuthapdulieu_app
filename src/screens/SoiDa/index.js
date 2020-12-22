@@ -9,13 +9,13 @@ import { View, FlatList, TouchableOpacity } from 'react-native';
 import I18n from '../../utilities/I18n';
 
 import {
-  NGHE_PHOI_FILTER,
-  NGHE_PHOI_DETAIL,
-  NGHE_PHOI_CREATE,
+  SOI_DA_FILTER,
+  SOI_DA_DETAIL,
+  SOI_DA_CREATE,
 } from '../../constants/router';
 import { timeFormatter } from '../../constants/dateFormat';
 
-import { getAll } from '../../epics-reducers/services/nghephoiServices';
+import { getAll } from '../../epics-reducers/services/soidaServices';
 
 import { KittenTheme } from '../../../config/theme';
 import { styleContainer } from '../../stylesContainer';
@@ -29,7 +29,7 @@ const LOAD_STATUS = {
   ALL_LOADED: 5,
 };
 
-export default class NghePhoi extends React.Component {
+export default class SoiDa extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
 
@@ -48,13 +48,13 @@ export default class NghePhoi extends React.Component {
       ),
       headerTitle: () => (
         <RkText rkType="header4" style={styleContainer.headerTitle}>
-          {I18n.t('Nghe phổi')}
+          {I18n.t('Soi da')}
         </RkText>
       ),
       headerRight: () => (
         <TouchableOpacity
           style={styleContainer.headerButton}
-          onPress={() => navigation.navigate(NGHE_PHOI_FILTER, params)}
+          onPress={() => navigation.navigate(SOI_DA_FILTER, params)}
         >
           <MaterialCommunityIcons
             name="filter-outline"
@@ -174,7 +174,7 @@ export default class NghePhoi extends React.Component {
 
   renderItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => this.props.navigation.navigate(NGHE_PHOI_DETAIL, item)}
+      onPress={() => this.props.navigation.navigate(SOI_DA_DETAIL, item)}
     >
       <View style={[tw.flexRow, tw.justifyBetween]}>
         <RkText rkType="bold">Mã khám</RkText>
@@ -276,7 +276,7 @@ export default class NghePhoi extends React.Component {
               tw.justifyCenter,
               { backgroundColor: KittenTheme.colors.appColor },
             ]}
-            onPress={() => this.props.navigation.navigate(NGHE_PHOI_CREATE)}
+            onPress={() => this.props.navigation.navigate(SOI_DA_CREATE)}
           >
             <Ionicons
               name="ios-add"

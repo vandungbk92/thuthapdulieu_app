@@ -33,8 +33,8 @@ import {
 
 import { CONSTANTS } from '../../constants';
 import {
-  NOISOI_HONG,
-  NOISOI_HONG_DETAIL,
+  SOI_DA,
+  SOI_DA_DETAIL,
   VIEW_IMAGE_PAGE,
   IMAGE_BROWSER_PAGE,
 } from '../../constants/router';
@@ -51,11 +51,11 @@ import {
   getQuanhuyenByTinhthanh,
   getPhuongxaByQuanhuyen,
 } from '../../epics-reducers/services/hanhtrinhServices';
-import { createData } from '../../epics-reducers/services/noisoiHongServices';
+import { createData } from '../../epics-reducers/services/soidaServices';
 
 import KeyboardAwareScrollView from '@pietile-native-kit/keyboard-aware-scrollview';
 
-export default class NoisoiHongCreate extends React.Component {
+export default class SoiDareate extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: () => (
@@ -72,7 +72,7 @@ export default class NoisoiHongCreate extends React.Component {
       ),
       headerTitle: () => (
         <RkText rkType="header4" style={styleContainer.headerTitle}>
-          {I18n.t('Thu thập dữ liệu nội soi họng')}
+          {I18n.t('Thu thập dữ liệu soi da')}
         </RkText>
       ),
     };
@@ -347,8 +347,8 @@ export default class NoisoiHongCreate extends React.Component {
     }
     const responseData = await createData(dataReq);
     if (responseData) {
-      showToast('Gửi dữ liệu thu thập nội soi họng thành công');
-      this.props.navigation.navigate(NOISOI_HONG, { forceRefresh: true });
+      showToast('Gửi dữ liệu thu thập soi da thành công');
+      this.props.navigation.navigate(SOI_DA, { forceRefresh: true });
     }
   };
 

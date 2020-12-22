@@ -17,15 +17,19 @@ import {
   NOISOI_TAI_DETAIL,
   NOISOI_TAI_CREATE,
   NOISOI_MUI,
+  NOISOI_MUI_FILTER,
   NOISOI_MUI_DETAIL,
   NOISOI_MUI_CREATE,
   NOISOI_HONG,
+  NOISOI_HONG_FILTER,
   NOISOI_HONG_DETAIL,
   NOISOI_HONG_CREATE,
-  CHUPANH_DA,
-  CHUPANH_DA_DETAIL,
-  CHUPANH_DA_CREATE,
+  SOI_DA,
+  SOI_DA_FILTER,
+  SOI_DA_DETAIL,
+  SOI_DA_CREATE,
   NGHE_PHOI,
+  NGHE_PHOI_FILTER,
   NGHE_PHOI_DETAIL,
   NGHE_PHOI_CREATE,
 } from '../constants/router';
@@ -49,14 +53,17 @@ import NoisoiMuiDetail from '../screens/NoisoiMui/Detail';
 import NoisoiMuiCreate from '../screens/NoisoiMui/Create';
 
 import NoisoiHong from '../screens/NoisoiHong';
+import NoisoiHongFilter from '../screens/NoisoiHong/Filter';
 import NoisoiHongDetail from '../screens/NoisoiHong/Detail';
 import NoisoiHongCreate from '../screens/NoisoiHong/Create';
 
-import ChupanhDa from '../screens/ChupanhDa';
-import ChupanhDaDetail from '../screens/ChupanhDa/Detail';
-import ChupanhDaCreate from '../screens/ChupanhDa/Create';
+import SoiDa from '../screens/SoiDa';
+import SoiDaFilter from '../screens/SoiDa/Filter';
+import SoiDaDetail from '../screens/SoiDa/Detail';
+import SoiDaCreate from '../screens/SoiDa/Create';
 
 import NghePhoi from '../screens/NghePhoi';
+import NghePhoiFilter from '../screens/NghePhoi/Filter';
 import NghePhoiDetail from '../screens/NghePhoi/Detail';
 import NghePhoiCreate from '../screens/NghePhoi/Create';
 
@@ -131,14 +138,17 @@ const AppNavigator = createStackNavigator(
     [NOISOI_MUI_CREATE]: NoisoiMuiCreate,
 
     [NOISOI_HONG]: NoisoiHong,
+    [NOISOI_HONG_FILTER]: NoisoiHongFilter,
     [NOISOI_HONG_DETAIL]: NoisoiHongDetail,
     [NOISOI_HONG_CREATE]: NoisoiHongCreate,
 
-    [CHUPANH_DA]: ChupanhDa,
-    [CHUPANH_DA_DETAIL]: ChupanhDaDetail,
-    [CHUPANH_DA_CREATE]: ChupanhDaCreate,
+    [SOI_DA]: SoiDa,
+    [SOI_DA_FILTER]: SoiDaFilter,
+    [SOI_DA_DETAIL]: SoiDaDetail,
+    [SOI_DA_CREATE]: SoiDaCreate,
 
     [NGHE_PHOI]: NghePhoi,
+    [NGHE_PHOI_FILTER]: NghePhoiFilter,
     [NGHE_PHOI_DETAIL]: NghePhoiDetail,
     [NGHE_PHOI_CREATE]: NghePhoiCreate,
   },

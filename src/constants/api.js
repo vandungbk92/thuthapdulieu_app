@@ -6,6 +6,15 @@ export const API = {
   NOISOI_TAI: '/api/noi-soi-tai',
   NOISOI_TAI_QUERY: '/api/noi-soi-tai?page={0}&limit={1}{2}',
 
+  NOISOI_HONG: '/api/noi-soi-hong',
+  NOISOI_HONG_QUERY: '/api/noi-soi-hong?page={0}&limit={1}{2}',
+
+  SOI_DA: '/api/soi-da',
+  SOI_DA_QUERY: '/api/soi-da?page={0}&limit={1}{2}',
+
+  NGHE_PHOI: '/api/nghe-phoi',
+  NGHE_PHOI_QUERY: '/api/nghe-phoi?page={0}&limit={1}{2}',
+
   BENH_QUERY: '/api/benh?page={0}&limit={1}{2}',
   TRIEUCHUNG_QUERY: '/api/trieu-chung?page={0}&limit={1}{2}',
 
