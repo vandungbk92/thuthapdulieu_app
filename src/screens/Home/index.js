@@ -6,7 +6,7 @@ import {
   NOISOI_TAI,
   NOISOI_MUI,
   NOISOI_HONG,
-  CHUPANH_DA,
+  SOI_DA,
   NGHE_PHOI,
 } from '../../constants/router';
 import { KittenTheme } from '../../../config/theme';
@@ -40,31 +40,31 @@ export default class Home extends React.Component {
           icon: 'chess-king',
           title: 'NỘI SOI TAI',
           router: NOISOI_TAI,
-          description: 'Thu thập dữ liệu khi nội soi tai',
+          description: 'Thu thập dữ liệu nội soi tai',
         },
-        {
-          icon: 'chess-queen',
-          title: 'NỘI SOI MŨI',
-          router: NOISOI_MUI,
-          description: 'Thu thập dữ liệu khi nội soi mũi',
-        },
+        // {
+        //   icon: 'chess-queen',
+        //   title: 'NỘI SOI MŨI',
+        //   router: NOISOI_MUI,
+        //   description: 'Thu thập dữ liệu nội soi mũi',
+        // },
         {
           icon: 'chess-knight',
           title: 'NỘI SOI HỌNG',
           router: NOISOI_HONG,
-          description: 'Thu thập dữ liệu khi nội soi họng',
+          description: 'Thu thập dữ liệu nội soi họng',
         },
         {
           icon: 'chess-rook',
-          title: 'CHỤP ẢNH DA',
-          router: CHUPANH_DA,
-          description: 'Thu thập dữ liệu khi chụp ảnh da',
+          title: 'SOI DA',
+          router: SOI_DA,
+          description: 'Thu thập dữ liệu soi da',
         },
         {
           icon: 'chess-pawn',
           title: 'NGHE PHỔI',
           router: NGHE_PHOI,
-          description: 'Thu thập dữ liệu khi nghe phổi',
+          description: 'Thu thập dữ liệu nghe phổi',
         },
       ],
     };

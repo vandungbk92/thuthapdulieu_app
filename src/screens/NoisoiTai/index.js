@@ -65,6 +65,7 @@ export default class NoisoiTai extends React.Component {
       ),
     };
   };
+  
   constructor(props) {
     super(props);
 

@@ -18,7 +18,7 @@ import { timeFormatter } from '../../constants/dateFormat';
 import { KittenTheme } from '../../../config/theme';
 import { styleContainer } from '../../stylesContainer';
 
-export default class NghePhoiDetail extends React.Component {
+export default class SoiDaDetail extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: () => (
@@ -35,7 +35,7 @@ export default class NghePhoiDetail extends React.Component {
       ),
       headerTitle: () => (
         <RkText rkType="header4" style={styleContainer.headerTitle}>
-          {I18n.t('Chi tiết nghe phổi')}
+          {I18n.t('Chi tiết soi da')}
         </RkText>
       ),
     };
