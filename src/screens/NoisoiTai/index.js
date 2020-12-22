@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 import { tw } from 'react-native-tailwindcss';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -14,6 +13,7 @@ import {
   NOISOI_TAI_DETAIL,
   NOISOI_TAI_CREATE,
 } from '../../constants/router';
+import { timeFormatter } from '../../constants/dateFormat';
 
 import { getAll } from '../../epics-reducers/services/noisoiTaiServices';
 
@@ -179,19 +179,19 @@ export default class NoisoiTai extends React.Component {
         <RkText rkType="bold">Mã khám</RkText>
         <RkText>{item.makham}</RkText>
       </View>
-      <View style={[tw.flexRow, tw.mTPx, tw.justifyBetween]}>
+      <View style={[tw.flexRow, tw.mT1, tw.justifyBetween]}>
         <RkText rkType="bold">Tuổi</RkText>
         <RkText>{item.tuoi}</RkText>
       </View>
-      <View style={[tw.flexRow, tw.mTPx, tw.justifyBetween]}>
+      <View style={[tw.flexRow, tw.mT1, tw.justifyBetween]}>
         <RkText rkType="bold">Triệu chứng</RkText>
         <RkText>
           {item.trieuchung_id.map(({ trieuchung }) => trieuchung).join(', ')}
         </RkText>
       </View>
-      <View style={[tw.flexRow, tw.mTPx, tw.justifyBetween]}>
+      <View style={[tw.flexRow, tw.mT1, tw.justifyBetween]}>
         <RkText rkType="bold">Thời gian</RkText>
-        <RkText>{moment(item.created_at).format('L LT')}</RkText>
+        <RkText>{timeFormatter(item.created_at)}</RkText>
       </View>
     </TouchableOpacity>
   );

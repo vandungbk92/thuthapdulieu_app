@@ -15,3 +15,18 @@ export function getAll(page, limit, params) {
       return null;
     });
 }
+
+export function createData(data) {
+  return axios
+    .post(`${COMMON_APP.HOST_API}${API.NOISOI_TAI}`, data)
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => {
+      return null;
+    });
+}
