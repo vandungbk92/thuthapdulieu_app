@@ -32,11 +32,20 @@ import {
 } from '../../epics-reducers/services/fileImageServices';
 
 import { CONSTANTS } from '../../constants';
-import { VIEW_IMAGE_PAGE, IMAGE_BROWSER_PAGE } from '../../constants/router';
+import {
+  NOISOI_TAI,
+  NOISOI_TAI_DETAIL,
+  VIEW_IMAGE_PAGE,
+  IMAGE_BROWSER_PAGE,
+} from '../../constants/router';
 
 import { KittenTheme } from '../../../config/theme';
 import { styleContainer } from '../../stylesContainer';
 
+import {
+  getBenh,
+  getTrieuchung,
+} from '../../epics-reducers/services/danhmucServices';
 import {
   getTinhthanh,
   getQuanhuyenByTinhthanh,
@@ -72,7 +81,7 @@ export default class NoisoiTaiCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tuoi: null,
+      tuoi: '',
       gioitinh: '',
 
       tinhthanh_id: '',
@@ -88,6 +97,9 @@ export default class NoisoiTaiCreate extends React.Component {
       benh_id: [],
       hinhanhkq: [],
 
+      benhs: [],
+      trieuchungs: [],
+
       tinhthanhs: [],
       quanhuyens: [],
       phuongxas: [],
@@ -99,6 +111,18 @@ export default class NoisoiTaiCreate extends React.Component {
   }
 
   async componentDidMount() {
+    const benhRes = await getBenh();
+    if (benhRes && benhRes.docs) {
+      const benhs = benhRes.docs;
+      this.setState({ benhs });
+    }
+
+    const trieuchungRes = await getTrieuchung();
+    if (trieuchungRes && trieuchungRes.docs) {
+      const trieuchungs = trieuchungRes.docs;
+      this.setState({ trieuchungs });
+    }
+
     const tinhthanhRes = await getTinhthanh();
     if (tinhthanhRes && tinhthanhRes.docs) {
       const tinhthanhs = tinhthanhRes.docs;
@@ -139,8 +163,8 @@ export default class NoisoiTaiCreate extends React.Component {
   };
 
   onPhuongxaChange = async (id, selectedItems) => {
-    const wardId = selectedItems[0]._id;
-    this.setState({ ward_id: wardId });
+    const phuongxaId = selectedItems[0]._id;
+    this.setState({ phuongxa_id: phuongxaId });
   };
 
   toggleModal(index) {
@@ -157,7 +181,7 @@ export default class NoisoiTaiCreate extends React.Component {
 
       case 3:
         this.props.navigation.navigate(VIEW_IMAGE_PAGE, {
-          images: this.state.images,
+          hinhanh: this.state.hinhanh,
         });
         break;
 
@@ -167,7 +191,7 @@ export default class NoisoiTaiCreate extends React.Component {
   }
 
   async pickImage() {
-    const { images } = this.state;
+    const { hinhanh } = this.state;
     const { status: statusCamera } = await Permissions.askAsync(
       Permissions.CAMERA,
     );
@@ -177,7 +201,7 @@ export default class NoisoiTaiCreate extends React.Component {
     if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
       this.props.navigation.navigate(IMAGE_BROWSER_PAGE, {
         max: 5,
-        total_exits: images ? images.length : 0,
+        total_exits: hinhanh ? hinhanh.length : 0,
         onGoBack: (callback) => this.imageBrowserCallback(callback),
       });
     } else {
@@ -200,17 +224,17 @@ export default class NoisoiTaiCreate extends React.Component {
     const result = await ImagePicker.launchCameraAsync({});
     if (!result.cancelled) {
       this.setState((state) => ({
-        images: [...state.images, ...convertImagesGallery([result])],
-        imageUpload: [...state.imageUpload, result],
+        hinhanh: [...state.hinhanh, ...convertImagesGallery([result])],
+        hinhanhUpload: [...state.hinhanhUpload, result],
       }));
     }
   }
 
   pickDocument = async () => {
-    const { files } = this.state;
+    const { video } = this.state;
     const total_files = 5;
 
-    if (Array.isArray(files) && files.length === total_files) {
+    if (Array.isArray(video) && video.length === total_files) {
       showToast(I18n.t('maximum_number_files').format(total_files));
       return;
     }
@@ -241,8 +265,8 @@ export default class NoisoiTaiCreate extends React.Component {
         return;
       }
       this.setState((state) => ({
-        files: [...state.files, ...convertFiles([result])],
-        fileUpload: [...state.fileUpload, result],
+        video: [...state.video, ...convertFiles([result])],
+        videoUpload: [...state.videoUpload, result],
       }));
     }
   };
@@ -255,73 +279,76 @@ export default class NoisoiTaiCreate extends React.Component {
     callback
       .then((photos) => {
         this.setState((state) => ({
-          images: [...state.images, ...convertImagesGallery(photos)],
-          imageUpload: [...state.imageUpload, ...photos],
+          hinhanh: [...state.hinhanh, ...convertImagesGallery(photos)],
+          hinhanhUpload: [...state.hinhanhUpload, ...photos],
         }));
       })
       .catch((e) => null);
   }
 
   deleteFileFunc = async (file) => {
-    let { files, fileUpload } = this.state;
+    let { video, videoUpload } = this.state;
 
-    files = files.filter((data) => {
+    video = video.filter((data) => {
       return data.name !== file.name;
     });
-    fileUpload = fileUpload.filter((data) => {
+    videoUpload = videoUpload.filter((data) => {
       return data.name !== file.name;
     });
 
-    this.setState({
-      files: files,
-      fileUpload: fileUpload,
-    });
+    this.setState({ video, videoUpload });
   };
 
   deleteImgFunc = async (uri) => {
-    let { images, imageUpload } = this.state;
+    let { hinhanh, hinhanhUpload } = this.state;
 
-    images = images.filter((data) => {
+    hinhanh = hinhanh.filter((data) => {
       return data.source.uri !== uri;
     });
-    imageUpload = imageUpload.filter((data) => {
+    hinhanhUpload = hinhanhUpload.filter((data) => {
       return data.file !== uri;
     });
 
-    this.setState({
-      images: images,
-      imageUpload: imageUpload,
-    });
+    this.setState({ hinhanh, hinhanhUpload });
   };
 
   onFormSubmit = async () => {
     const dataValidate = [
       {
         type: CONSTANTS.REQUIRED,
-        value: this.state.noidung,
-        alert: 'Nội dung',
+        value: this.state.tuoi,
+        alert: 'Tuổi',
       },
     ];
     if (!checkValidate(dataValidate)) return;
-
     const dataReq = {
-      lienket: this.state.lienket,
-      noidung: this.state.noidung,
+      tuoi: this.state.tuoi,
+      gioitinh: this.state.gioitinh,
+
+      tinhthanh_id: this.state.tinhthanh_id,
+      quanhuyen_id: this.state.quanhuyen_id,
+      phuongxa_id: this.state.phuongxa_id,
+
+      lydokham: this.state.lydokham,
+      trieuchung_id: this.state.trieuchung_id,
+      hinhanh: this.state.hinhanh,
+      video: this.state.video,
+
+      ketluan: this.state.ketluan,
+      benh_id: this.state.benh_id,
     };
-
-    if (this.state.fileUpload.length) {
-      const files = await uploadFiles(this.state.fileUpload);
-      dataReq.teptin = files;
+    if (this.state.hinhanhUpload.length) {
+      const hinhanh = await uploadImages(this.state.hinhanhUpload);
+      dataReq.hinhanh = hinhanh;
     }
-    if (this.state.imageUpload.length) {
-      const images = await uploadImages(this.state.imageUpload);
-      dataReq.hinhanh = images;
+    if (this.state.videoUpload.length) {
+      const video = await uploadFiles(this.state.videoUpload);
+      dataReq.video = video;
     }
-
-    const responseData = await createRequest(dataReq);
+    const responseData = await createData(dataReq);
     if (responseData) {
-      showToast('Gửi yêu cầu xác minh thông tin thành công');
-      this.props.navigation.navigate(XACMINH_THONGTIN, { forceRefresh: true });
+      showToast('Gửi dữ liệu thu thập nội soi tai thành công');
+      this.props.navigation.navigate(NOISOI_TAI, { forceRefresh: true });
     }
   };
 
@@ -375,19 +402,28 @@ export default class NoisoiTaiCreate extends React.Component {
                   required={true}
                   editable={true}
                   placeholder={I18n.t('Tuổi')}
+                  keyboardType="number-pad"
                   onChangeText={(id, value) => this.setState({ tuoi: value })}
                 />
                 <FormGroup
                   type={CONSTANTS.RADIO}
-                  data={[{ _id: 'MALE', name: 'Nam', }, { _id: 'FEMALE', name: 'Nữ', }]}
-                  value={this.state.gioitinh}
+                  data={[
+                    { _id: 'MALE', name: 'Nam' },
+                    { _id: 'FEMALE', name: 'Nữ' },
+                  ]}
                   placeholder={I18n.t('Giới tính')}
-                  onChange={(id, selectedItem) => this.setState({ gioitinh: selectedItem._id })}
+                  containerStyle={tw.mTPx}
+                  onChange={(id, selectedId) =>
+                    this.setState({ gioitinh: selectedId })
+                  }
                 />
                 <FormGroup
                   type={CONSTANTS.SELECT}
                   value={[
-                    { display: CONSTANTS.NONE, children: this.state.tinhthanhs },
+                    {
+                      display: CONSTANTS.NONE,
+                      children: this.state.tinhthanhs,
+                    },
                   ]}
                   single={true}
                   subKey="children"
@@ -431,6 +467,83 @@ export default class NoisoiTaiCreate extends React.Component {
                   showCancelButton={true}
                   onCancel={(id, selected) => {}}
                   onConfirm={this.onPhuongxaChange}
+                />
+              </View>
+            </View>
+            <View style={tw.mT4}>
+              <RkText rkType="header4">II. KHÁM BỆNH</RkText>
+              <View style={tw.mT2}>
+                <FormGroup
+                  type={CONSTANTS.TEXT_AREA}
+                  value={this.state.lydokham}
+                  editable={true}
+                  placeholder="Lý do đi khám"
+                  onChangeText={(id, value) => this.setState({ lydokham: value })}
+              />
+                <FormGroup
+                  type={CONSTANTS.CHECKBOX}
+                  data={this.state.trieuchungs}
+                  displayKey="trieuchung"
+                  placeholder={I18n.t('Triệu chứng')}
+                  containerStyle={tw.mTPx}
+                  onChange={(id, selectedIds) =>
+                    this.setState({ trieuchung_id: selectedIds })
+                  }
+                />
+                <View style={[tw.flexRow, tw.mTPx]}>
+                  <GradientButton
+                    text={I18n.t('attached_image')}
+                    style={[tw.flex1, styleContainer.buttonGradient]}
+                    onPress={this.showActionSheet}
+                  />
+                  <View style={tw.w1} />
+                  <GradientButton
+                    text={I18n.t('attached_file')}
+                    style={[tw.flex1, styleContainer.buttonGradient]}
+                    onPress={this.pickDocument}
+                  />
+                </View>
+                <Gallery
+                  items={hinhanh}
+                  deleteImg={true}
+                  navigation={this.props.navigation}
+                  deleteImgFunc={this.deleteImgFunc}
+                />
+                <Files
+                  files={video}
+                  deleteFile={true}
+                  deleteFileFunc={this.deleteFileFunc}
+                />
+              </View>
+            </View>
+            <View style={tw.mT4}>
+              <RkText rkType="header4">III. KẾT LUẬN</RkText>
+              <View style={tw.mT2}>
+                <FormGroup
+                  type={CONSTANTS.TEXT_AREA}
+                  value={this.state.ketluan}
+                  editable={true}
+                  placeholder="Kết luận"
+                  onChangeText={(id, value) => this.setState({ ketluan: value })}
+                />
+                <FormGroup
+                  type={CONSTANTS.SELECT}
+                  value={[
+                    {
+                      display: CONSTANTS.NONE,
+                      children: this.state.benhs,
+                    },
+                  ]}
+                  subKey="children"
+                  displayKey="benh"
+                  selectText={I18n.t('Bệnh')}
+                  selectedItems={this.state.benh_id}
+                  containerStyle={tw.mTPx}
+                  showCancelButton={true}
+                  onCancel={(id, selected) => {}}
+                  onConfirm={(id, selectedIds) =>
+                    this.setState({ benh_id: selectedIds })
+                  }
                 />
               </View>
             </View>

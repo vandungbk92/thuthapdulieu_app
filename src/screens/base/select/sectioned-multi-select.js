@@ -288,7 +288,7 @@ class SectionedMultiSelect extends PureComponent {
       const foundItem = this._findItem(item)
       return this.getProp(foundItem, displayKey) || selectText
     }
-    return `${selectText} (${selectedItems.length} ${selectedText})`
+    return `${selectText} (${selectedItems.length} ${selectedText || 'đã chọn'})`
   }
 
   _filterItems = (searchTerm) => {
@@ -772,7 +772,7 @@ class SectionedMultiSelect extends PureComponent {
                 {!single && <View style={{ flex: 1, paddingHorizontal: 10 }}>
                   <GradientButton
                     style={styleContainer.buttonGradient}
-                    text={confirmText}
+                    text={confirmText || "Xác nhận"}
                     onPress={this._submitSelection} />
                 </View>}
               </View>

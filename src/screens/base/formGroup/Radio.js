@@ -57,7 +57,9 @@ export function Radio(props) {
               <TouchableOpacity key={item._id} choiceTrigger>
                 <View style={styles.itemContainer}>
                   <RkChoice style={styles.choiceStyle} rkType="radio" selected={selectedId === item._id} />
-                  <RkText style={styles.choiceTextStyle}>{item.name}</RkText>
+                  <RkText style={styles.choiceTextStyle}>
+                    {props.props.displayKey ? item[props.props.displayKey] : item.name}
+                  </RkText>
                 </View>
               </TouchableOpacity>
             ))}

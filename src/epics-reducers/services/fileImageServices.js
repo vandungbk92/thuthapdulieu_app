@@ -19,7 +19,7 @@ function uploadFiles(files) {
     });
     return axios.post(path, formData, config).then(response => {
       const data = response.data;
-      if(data) dataRes = [...dataRes, data.file_id]
+      if(data) dataRes = [...dataRes, data.image_id]
     }).catch(error => {
     });
   });
@@ -33,7 +33,7 @@ function uploadImages(images) {
   const config = {
     headers: {"content-type": "multipart/form-data", "Content-Type": "multipart/form-data"}
   }
-  let path = `${COMMON_APP.HOST_API}${"/api/files/image"}`
+  let path = `${COMMON_APP.HOST_API}${"/api/files"}`
 
   let dataRes = []
   const uploaders = images.map((file, index) => {
@@ -47,7 +47,7 @@ function uploadImages(images) {
     });
     return axios.post(path, formData, config).then(response => {
       const data = response.data;
-      if(data) dataRes = [...dataRes, data.file_id]
+      if(data) dataRes = [...dataRes, data.image_id]
     }).catch(error => {
 
     });
