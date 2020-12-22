@@ -240,20 +240,19 @@ export default class NoisoiTaiCreate extends React.Component {
     }
 
     const result = await DocumentPicker.getDocumentAsync({
-      //type: 'application/*',
+      // type: 'application/*',
       copyToCacheDirectory: false,
     });
     if (result.type !== 'cancel') {
       const fileNameSplit = result.name.split('.');
       const fileType = fileNameSplit[fileNameSplit.length - 1];
       if (
-        fileType !== 'doc' &&
-        fileType !== 'docx' &&
-        fileType !== 'pdf' &&
-        fileType !== 'xls' &&
-        fileType !== 'xlsx'
+        fileType !== 'mp4' &&
+        fileType !== 'mov' &&
+        fileType !== 'mpg' &&
+        fileType !== 'mpeg'
       ) {
-        showToast(I18n.t('inappropriate_file_format'));
+        showToast(I18n.t('Định dạng file không phù hợp (Tệp hỗ trợ .mp4,.mov,.mpg,.mpeg)'));
         return;
       }
       if (result.size >= CONSTANTS.LIMIT_SIZE_OF_FILE) {
