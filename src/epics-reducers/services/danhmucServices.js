@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { COMMON_APP, API } from '../../constants';
 
-export function getAll(page, limit, params) {
+export function getBenh() {
   return axios
-    .get(`${COMMON_APP.HOST_API}${API.NOISOI_TAI_QUERY.format(page, limit, '')}`, { params })
+    .get(`${COMMON_APP.HOST_API}${API.BENH_QUERY.format(0, 0, '')}`)
     .then((res) => {
       if (res.data) {
         return res.data;
@@ -16,9 +16,9 @@ export function getAll(page, limit, params) {
     });
 }
 
-export function createData(data) {
+export function getTrieuchung() {
   return axios
-    .post(`${COMMON_APP.HOST_API}${API.NOISOI_TAI}`, data)
+    .get(`${COMMON_APP.HOST_API}${API.TRIEUCHUNG_QUERY.format(0, 0, '')}`)
     .then((res) => {
       if (res.data) {
         return res.data;

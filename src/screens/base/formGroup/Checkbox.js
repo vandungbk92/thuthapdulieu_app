@@ -72,7 +72,9 @@ export function Checkbox(props) {
                     style={styles.choiceStyle}
                     selected={selectedIds.includes(item._id)}
                   />
-                  <RkText style={styles.choiceTextStyle}>{item.name}</RkText>
+                  <RkText style={styles.choiceTextStyle}>
+                    {props.props.displayKey ? item[props.props.displayKey] : item.name}
+                  </RkText>
                 </View>
               </TouchableOpacity>
             ))}

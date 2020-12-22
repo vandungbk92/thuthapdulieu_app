@@ -95,6 +95,7 @@ export class Select extends Component {
                   uniqueKey="_id"
                   subKey={props.subKey}
                   single={props.single}
+                  displayKey={props.displayKey}
                   showCancelButton={props.showCancelButton}
                   selectText={I18n.t("select") + " " + props.selectText}
                   selectedItems={this.state.selectedItems}

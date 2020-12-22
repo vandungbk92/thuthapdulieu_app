@@ -17,7 +17,17 @@ export function Radio(props) {
 
   const [selectedId, setSelectedId] = React.useState([]);
 
-  const onChange = React.useCallback((selectedIndex) => {}, [
+  React.useEffect(() => {
+    if (props.props.value) {
+      setSelectedId(props.props.value);
+    }
+  }, [props.props.value]);
+
+  const onChange = React.useCallback((selectedIndex) => {
+      const selectedItem = props.props.data[selectedIndex];
+      setSelectedId(selectedItem._id);
+      props.props.onChange(props.props.id, selectedItem);
+    }, [
     props.props.data,
     selectedId,
   ]);
@@ -43,11 +53,13 @@ export function Radio(props) {
         )}
         {props.props.data.length > 0 && (
           <RkChoiceGroup radio onChange={onChange}>
-            {props.props.data.map((item, i) => (
-              <TouchableOpacity key={i} choiceTrigger>
+            {props.props.data.map((item) => (
+              <TouchableOpacity key={item._id} choiceTrigger>
                 <View style={styles.itemContainer}>
-                  <RkChoice style={styles.choiceStyle} rkType="radio" />
-                  <RkText style={styles.choiceTextStyle}>{item.name}</RkText>
+                  <RkChoice style={styles.choiceStyle} rkType="radio" selected={selectedId === item._id} />
+                  <RkText style={styles.choiceTextStyle}>
+                    {props.props.displayKey ? item[props.props.displayKey] : item.name}
+                  </RkText>
                 </View>
               </TouchableOpacity>
             ))}

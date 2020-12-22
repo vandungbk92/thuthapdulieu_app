@@ -10,6 +10,8 @@ import {
   LOGIN_PAGE,
   HOME_PAGE,
   PROFILE_PAGE,
+  IMAGE_BROWSER_PAGE,
+  VIEW_IMAGE_PAGE,
   NOISOI_TAI,
   NOISOI_TAI_FILTER,
   NOISOI_TAI_DETAIL,
@@ -33,6 +35,9 @@ import { KittenTheme } from '../../config/theme';
 import LoginScreen from '../screens/Login';
 import HomeScreen from '../screens/Home';
 import UserProfileScreen from '../screens/UserProfile';
+
+import ImageBrowserScreen from '../screens/ImageBrowser';
+import ViewImageScreen from '../screens/base/viewImages';
 
 import NoisoiTai from '../screens/NoisoiTai';
 import NoisoiTaiFilter from '../screens/NoisoiTai/Filter';
@@ -112,6 +117,9 @@ const AppNavigator = createStackNavigator(
 
     [HOME_PAGE]: HomeScreen,
     [PROFILE_PAGE]: UserProfileScreen,
+
+    [IMAGE_BROWSER_PAGE]: ImageBrowserScreen,
+    [VIEW_IMAGE_PAGE]: ViewImageScreen,
 
     [NOISOI_TAI]: NoisoiTai,
     [NOISOI_TAI_FILTER]: NoisoiTaiFilter,
