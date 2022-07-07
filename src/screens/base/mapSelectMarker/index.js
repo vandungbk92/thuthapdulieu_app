@@ -65,7 +65,7 @@ class MapSelectMarker extends Component {
     this.getAddress = this.getAddress.bind(this)
   }
 
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     if (Platform.OS === 'android' && !Constants.isDevice) {
       showToast('Oops, this will not work on Sketch in an Android emulator. Try it on your device!')
     } else {

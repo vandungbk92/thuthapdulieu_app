@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { RkText, RkTextInput } from 'react-native-ui-kitten';
 import GradientButton from '../base/gradientButton';
 import { CONSTANTS } from '../../constants';
@@ -18,7 +18,7 @@ import { DEVICE_HEIGHT, STATUS_BAR_HEIGHT } from '../../constants/variable';
 import I18n from '../../utilities/I18n';
 import JwtDecode from 'jwt-decode';
 import { fetchTokenDecode } from '../../epics-reducers/fetch/fetch-token.duck';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 class Login extends Component {
   static navigationOptions = {
     headerShown: false,
@@ -27,8 +27,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'admin',
-      password: '123456',
+      username: 'tuan123',
+      password: 'tuan123',
     };
   }
 

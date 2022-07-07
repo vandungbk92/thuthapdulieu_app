@@ -106,7 +106,48 @@ class MapNative extends Component {
     });
   }
 
-  async componentDidUpdate(prevProps, prevState) {
+  /* async componentDidUpdate(prevProps, prevState) {
+    let {disableMap, address, showMap} = this.props
+    if(showMap !== prevProps.showMap && !showMap){
+      let {listSuggestions} = this.state
+      if(listSuggestions && listSuggestions.length) this.setState({listSuggestions: []})
+    }
+
+    if(showMap !== prevProps.showMap && showMap && !this.state.use_maps){
+      let {locationServicesEnabled} = await Location.getProviderStatusAsync()
+
+      if (locationServicesEnabled) {
+        try{
+          let locationDevice = await Location.getCurrentPositionAsync({timeout: 5000});
+          let location = {
+            latitude: locationDevice.coords.latitude,
+            longitude: locationDevice.coords.longitude,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05 * ASPECT_RATIO
+          }
+          this.getLocation(location)
+        }catch (e) {
+          let location = {
+            latitude: 19.807685,
+            longitude: 105.776748,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05 * ASPECT_RATIO
+          }
+          this.getLocation(location)
+        }
+      }else{
+        let location = {
+          latitude: 19.807685,
+          longitude: 105.776748,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05 * ASPECT_RATIO
+        }
+        this.getLocation(location)
+      }
+    }
+  } */
+
+  async getSnapshotBeforeUpdate(prevProps , prevState){
     let {disableMap, address, showMap} = this.props
     if(showMap !== prevProps.showMap && !showMap){
       let {listSuggestions} = this.state

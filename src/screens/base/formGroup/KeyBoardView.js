@@ -4,11 +4,12 @@ import { styleContainer } from '../../../stylesContainer';
 import { PLATFORM_IOS } from '../../../constants/variable';
 
 export default class KeyboardView extends Component {
-	componentWillMount() {
+	UNSAFE_componentWillMount() {
 		this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
 		this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
 	}
-	componentWillUnmount() {
+
+	UNSAFE_componentWillUnmount() {
 		this.keyboardDidShowSub.remove();
 		this.keyboardDidHideSub.remove();
 	}

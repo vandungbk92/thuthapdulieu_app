@@ -61,7 +61,7 @@ export default class ImageBrowser extends React.Component {
     this.props.callback(callbackResult)
   }
 
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
   }

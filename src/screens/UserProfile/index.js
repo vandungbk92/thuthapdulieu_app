@@ -31,7 +31,7 @@ class UserProfile extends Component {
         <RkText rkType="header4" style={styleContainer.headerTitle}>{I18n.t('citizen_info')}</RkText>
       ),
       headerRight: () => (
-        <TouchableOpacity style={styleContainer.headerButton} onPress={() => params ? params.handleRightPress() : null}>
+        <TouchableOpacity style={styleContainer.headerButton} onPress={() => params ? params.handleRightPress(params.editable) : null}>
           {params ? params.renderRightIcon(params.editable) : null}
         </TouchableOpacity>
       ),
@@ -47,7 +47,7 @@ class UserProfile extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.navigation.setParams({
       handleLeftPress: () => this.handleLeftPress(),
       renderLeftIcon: () => this.renderLeftIcon(),
@@ -117,7 +117,7 @@ class UserProfile extends Component {
     this.props.navigation.goBack(null)
   }
 
-  handleRightPress() {
+  handleRightPress = () => {
     this.state.editable ? this.handleSaveInforUser() : this.setState({editable: true}, () => this.props.navigation.setParams({editable: true}))
   }
 
@@ -127,12 +127,10 @@ class UserProfile extends Component {
     )
   }
 
-  renderRightIcon() {
-    return (
-      <Ionicons name={this.state.editable ? "md-checkmark" : "md-create"} size={20}
-                color={KittenTheme.colors.appColor}/>
-    )
-  }
+  renderRightIcon = () =>  (
+    <Ionicons name={this.state.editable ? "md-checkmark" : "md-create"} size={20}
+              color={KittenTheme.colors.appColor}/>
+  )
 
   handleSelected(id, data) {
     this.state[id] = [data[0]._id]
@@ -159,7 +157,7 @@ class UserProfile extends Component {
                        placeholder={I18n.t('full_name')}
                        value={this.state.userInfo.full_name || ""}
                        onChangeText={(id, value) => this.changeElement(id, value)}
-                       labelIcon={<Ionicons name="ios-contact" size={20} color={KittenTheme.colors.appColor}/>}
+                       labelIcon={<Ionicons name="person" size={20} color={KittenTheme.colors.appColor}/>}
             />
             <FormGroup type={CONSTANTS.TEXT}
                        required={true}

@@ -21,4 +21,7 @@ export const API = {
   TINHTHANH_QUERY: '/api/tinh-thanh?page={0}&limit={1}{2}',
   QUANHUYEN_BY_TINHTHANH: '/api/tinh-thanh/{0}/quan-huyen',
   PHUONGXA_BY_QUANHUYEN: '/api/quan-huyen/{0}/phuong-xa',
+
+  QUAN_LY_DU_LIEU: '/api/quan-ly-du-lieu',
+  QUAN_LY_DU_LIEU_QUERY: '/api/quan-ly-du-lieu?page={0}&limit={1}{2}'
 };

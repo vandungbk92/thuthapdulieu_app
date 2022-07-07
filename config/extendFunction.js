@@ -9,8 +9,7 @@ import {fetchUsersInfoFailure} from "../src/epics-reducers/fetch/fetch-users-inf
 
 export const extendFunction = (store) => {
   let apiReq = 0, apiRes = 0
-  console.disableYellowBox = true;
-
+  // console.disableYellowBox = true;
   axios.interceptors.request.use(function (config) {
     if (__DEV__) console.log(config.method, config.url, JSON.stringify(config.data))
     let isLoading = store.getState().isLoading

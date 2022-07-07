@@ -35,11 +35,22 @@ export default class ImageBrowserScreen extends Component {
     }
   }
 
-  componentWillMount() {
+  // constructor(props) {
+  //   super(props);
+  //   this.props.navigation.setParams({
+  //     prepareCallback: () => this.prepareCallback()
+  //   });
+  
+  //   BackHandler.addEventListener("hardwareBackPress", () => {
+  //     this.props.navigation.state.params.onGoBack(CONSTANTS.REJECT);
+  //   });
+  // }
+
+  UNSAFE_componentWillMount() {
     this.props.navigation.setParams({
       prepareCallback: () => this.prepareCallback()
     });
-
+  
     BackHandler.addEventListener("hardwareBackPress", () => {
       this.props.navigation.state.params.onGoBack(CONSTANTS.REJECT);
     });

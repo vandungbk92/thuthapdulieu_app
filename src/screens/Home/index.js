@@ -8,6 +8,8 @@ import {
   NOISOI_HONG,
   SOI_DA,
   NGHE_PHOI,
+  UPLOAD_PAGE,
+  QUAN_LY_DU_LIEU,
 } from '../../constants/router';
 import { KittenTheme } from '../../../config/theme';
 import { RkText } from 'react-native-ui-kitten';
@@ -66,6 +68,18 @@ export default class Home extends React.Component {
           router: NGHE_PHOI,
           description: 'Thu thập dữ liệu nghe phổi',
         },
+        {
+          icon: 'file-upload',
+          title: 'UPLOAD DỮ LIỆU',
+          router: UPLOAD_PAGE,
+          description: 'Thu thập dữ liệu trực tiếp',
+        },
+        {
+          icon: 'file-upload',
+          title: 'QUẢN LÝ DỮ LIỆU',
+          router: QUAN_LY_DU_LIEU,
+          description: 'Quản lý dữ liệu thu thập đc',
+        },
       ],
     };
   }
@@ -80,14 +94,14 @@ export default class Home extends React.Component {
         style={[tw.flexRow, tw.p2, tw.rounded, tw.bgWhite]}
         onPress={() => this.onPress(item.router)}
       >
-        {/* <View style={[tw.pR1, tw.w12, tw.pT1, tw.itemsCenter]}>
+        <View style={[tw.pR1, tw.w12, tw.pT1, tw.itemsCenter]}>
           <FontAwesome5
             name={item.icon}
             size={26}
             solid={true}
             color={KittenTheme.colors.appColor}
           />
-        </View> */}
+        </View>
         <View style={tw.flex1}>
           <RkText rkType="bold" style={{ color: KittenTheme.colors.appColor }}>
             {item.title}

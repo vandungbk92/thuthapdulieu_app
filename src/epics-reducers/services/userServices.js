@@ -2,6 +2,7 @@ import axios from 'axios';
 import { COMMON_APP, API, CONSTANTS } from '../../constants';
 
 export function userLogin(data) {
+  console.log('COMMON_APP.HOST_API', COMMON_APP.HOST_API)
   return axios
     .post(`${COMMON_APP.HOST_API}${API.USERS_LOGIN}`, data)
     .then((res) => {

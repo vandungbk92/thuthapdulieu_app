@@ -25,7 +25,17 @@ export class Select extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  /* componentDidUpdate(prevProps) {
+    if (this.props.props.type === CONSTANTS.SELECT) {
+      let { selectedItems } = this.props.props
+      if (selectedItems !== prevProps.props.selectedItems) {
+        let copy = Object.assign([], this.props.props.selectedItems)
+        this.setState({ selectedItems: copy })
+      }
+    }
+  } */
+
+  getSnapshotBeforeUpdate(prevProps , prevState){
     if (this.props.props.type === CONSTANTS.SELECT) {
       let { selectedItems } = this.props.props
       if (selectedItems !== prevProps.props.selectedItems) {

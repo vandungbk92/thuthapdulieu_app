@@ -40,7 +40,7 @@ export class DateTime extends Component {
 
   render() {
     let { props } = this.props
-    let valueShow = props.value ? moment(props.value).format(props.setting.format_date) : <Space />//("Chọn " + props.placeholder)
+    let valueShow = props.value ? moment(props.value).format(props.format || 'DD/MM/YYYY') : <Space />//("Chọn " + props.placeholder)
     return (
       <View style={[styles.viewContainer, styleContainer.boxShadow, props.containerStyle]}>
         <View style={styles.group}>
@@ -59,15 +59,16 @@ export class DateTime extends Component {
             :
             <TouchableOpacity
               onPress={() => this.showDatetime(true, props.editable)}>
-              <View style={[styles.readOnly, props.contentStyle]}>
+              <View style={[styles.readOnly/* , props.contentStyle */]}>
                 <View>
                   <RkText rkType="primary2 disabled">{props.placeholder}<Required required={props.required} /><Space /></RkText>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={[{ paddingVertical: 4 }, props.contentStyle]}>
                   <RkText rkType="" style={{ textAlign: 'left' }}>{valueShow}</RkText>
                 </View>
               </View>
-            </TouchableOpacity>}
+            </TouchableOpacity>
+          }
           <DateTimePicker
             isVisible={this.state.isShowDateTime}
             onConfirm={(date) => this.handleDatePicked(props.id, CONSTANTS.CONFIRM, date)}
@@ -97,5 +98,5 @@ const styles = StyleSheet.create({
   labelIcon: { alignSelf: "center", flex: 1 },
   viewText: { backgroundColor: "#ffffff", flex: 9 },
   placeholderIcon: { flex: 1, alignSelf: "center" },
-  readOnly: { flexDirection: 'row' },
+  readOnly: { flexDirection: 'column' },
 })

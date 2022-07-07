@@ -220,7 +220,7 @@ class SectionedMultiSelect extends PureComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.styles, nextProps.styles)) {
       this.setState({ styles: StyleSheet.flatten([defaultStyles, nextProps.styles]) })
     }

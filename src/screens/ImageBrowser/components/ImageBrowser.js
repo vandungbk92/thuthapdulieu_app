@@ -5,7 +5,7 @@ import {ImageBrowser as RNImageBrowser} from "../../base/expoMultipleImagepicker
 import I18n from '../../../utilities/I18n';
 
 export default class ImageBrowser extends RNImageBrowser {
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     if (JSON.stringify(nextState.selected) != JSON.stringify(this.state.selected)) {
       if (this.props.onSelectImage) this.props.onSelectImage(nextState.selected);
     }

@@ -7,6 +7,9 @@ export const PROFILE_PAGE = "PROFILE_PAGE"
 export const IMAGE_BROWSER_PAGE = "IMAGE_BROWSER_PAGE"
 export const VIEW_IMAGE_PAGE = "VIEW_IMAGE_PAGE"
 
+export const VIDEO_PAGE = 'VIDEO_PAGE'
+export const AUDIO_PAGE = 'AUDIO_PAGE'
+
 export const NOISOI_TAI = "NOISOI_TAI"
 export const NOISOI_TAI_FILTER = "NOISOI_TAI_FILTER"
 export const NOISOI_TAI_DETAIL = "NOISOI_TAI_DETAIL"
@@ -31,3 +34,7 @@ export const NGHE_PHOI = "NGHE_PHOI"
 export const NGHE_PHOI_FILTER = "NGHE_PHOI_FILTER"
 export const NGHE_PHOI_DETAIL = "NGHE_PHOI_DETAIL"
 export const NGHE_PHOI_CREATE = "NGHE_PHOI_CREATE"
+
+export const UPLOAD_PAGE = "UPLOAD_PAGE"
+export const QUAN_LY_DU_LIEU = "QUAN_LY_DU_LIEU"
+export const DU_LIEU_DETAIL = "DU_LIEU_DETAIL"

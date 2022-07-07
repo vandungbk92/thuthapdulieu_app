@@ -32,6 +32,11 @@ import {
   NGHE_PHOI_FILTER,
   NGHE_PHOI_DETAIL,
   NGHE_PHOI_CREATE,
+  UPLOAD_PAGE,
+  VIDEO_PAGE,
+  AUDIO_PAGE,
+  QUAN_LY_DU_LIEU,
+  DU_LIEU_DETAIL,
 } from '../constants/router';
 
 import { KittenTheme } from '../../config/theme';
@@ -66,6 +71,12 @@ import NghePhoi from '../screens/NghePhoi';
 import NghePhoiFilter from '../screens/NghePhoi/Filter';
 import NghePhoiDetail from '../screens/NghePhoi/Detail';
 import NghePhoiCreate from '../screens/NghePhoi/Create';
+
+import UploadScreen from '../screens/Upload';
+import VideoUpload from "../screens/Upload/components/VideoUpload";
+import AudioUpload from "../screens/Upload/components/AudioUpload";
+import QuanlyDulieu from './../screens/QuanlyDulieu/index';
+import DulieuDetail from '../screens/QuanlyDulieu/detail';
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -151,6 +162,12 @@ const AppNavigator = createStackNavigator(
     [NGHE_PHOI_FILTER]: NghePhoiFilter,
     [NGHE_PHOI_DETAIL]: NghePhoiDetail,
     [NGHE_PHOI_CREATE]: NghePhoiCreate,
+
+    [UPLOAD_PAGE]: UploadScreen,
+    [VIDEO_PAGE]: VideoUpload,
+    [AUDIO_PAGE]: AudioUpload,
+    [QUAN_LY_DU_LIEU]: QuanlyDulieu,
+    [DU_LIEU_DETAIL]: DulieuDetail
   },
   {
     headerMode: 'screen',
