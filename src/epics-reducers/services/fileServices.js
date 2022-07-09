@@ -1,53 +1,65 @@
 import * as FileSystem from "expo-file-system";
 import {COMMON_APP} from "../../constants";
-import axios from "axios";
-import { create } from "./quanlydulieuServices";
-import { CONSTANTS } from './../../constants/constants';
-import moment from 'moment';
 
-export async function postFile(id, uri, fieldName, curentTime) {
-    return FileSystem.uploadAsync(
-        `${COMMON_APP.HOST_API}${"/api/uploads/"}${id}${"?time="}${curentTime}`,
-        uri,
-        {
-            httpMethod: "POST",
-            uploadType: FileSystem.FileSystemUploadType.MULTIPART,
-            fieldName: fieldName,
-        }).then((res) => {
-        if (res.status === 200) { 
-            return res;
-        }
-        return null;
-    }).catch((err) => {
-        console.log(err.message)
-        return null;
-    });
+export async function postFile(uri, type, datasetId) {
+  return FileSystem.uploadAsync(
+    `${COMMON_APP.HOST_API}${"/api/uploads"}`,
+    uri,
+    {
+      httpMethod: "POST",
+      uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+      fieldName: 'files',
+      parameters: {
+        type,
+        datasetId: datasetId
+      }
+    }).then((res) => {
+    if (res.status === 200) {
+      let dataRes = JSON.parse(res.body)
+      return dataRes[0]._id;
+    }
+    return null;
+  }).catch((err) => {
+    console.log(err.message)
+    return null;
+  });
 }
 
-export async function postImages(images, id, curentTime) {
-    let path = `${COMMON_APP.HOST_API}${"/api/uploads/"}${id}${"?time="}${curentTime}`
-
+export async function postImages(images, datasetId) {
+  try{
+    let path = `${COMMON_APP.HOST_API}${"/api/uploads"}`
+    console.log(images, 'postImagespostImagespostImages')
     const uploads = images.map((image, index) => {
-        return image.uri
+      return image.uri || image.file;
     })
-
+    console.log(uploads, 'uploads')
     const response = await Promise.all(uploads.map((uri, index) => {
-        return FileSystem.uploadAsync(
-            path,
-            uri,
-            {
-                httpMethod: "POST",
-                uploadType: FileSystem.FileSystemUploadType.MULTIPART,
-                fieldName: 'files',
-            }).then((res) => {
-            if (res.status === 200) {
-                return res;
-            }
-            return null;
-        }).catch((err) => {
-            return null;
-        });
+      return FileSystem.uploadAsync(
+        path,
+        uri,
+        {
+          httpMethod: "POST",
+          uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+          fieldName: 'files',
+          parameters: {
+            type: 'image',
+            img_type: 'upload',
+            datasetId: datasetId
+          }
+        }).then((res) => {
+        if (res.status === 200) {
+          console.log(JSON.parse(res.body), 'JSON.parse(res.body)')
+          let dataRes = JSON.parse(res.body)
+          return dataRes[0]._id;
+        }
+        return null;
+      }).catch((err) => {
+        console.log(err, 'errerrerr')
+        return null;
+      });
     }))
-
     return response;
+  }catch (e) {
+    console.log(e, 'eee')
+  }
 }

@@ -82,7 +82,7 @@ export default class ImageBrowserScreen extends Component {
 
   render() {
     let {max, total_exits} = this.props.navigation.state.params
-    if(!max) max = 5
+    if(!max) max = 10
     if(!total_exits) total_exits = 0
     return (
       <ImageBrowser

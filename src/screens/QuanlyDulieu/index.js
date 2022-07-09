@@ -9,10 +9,6 @@ import { getAll } from "./../../epics-reducers/services/quanlydulieuServices";
 import moment from "moment";
 import { CONSTANTS } from "./../../constants/constants";
 import I18n from "./../../utilities/I18n";
-
-import { Gallery } from "../base/gallery";
-import { Video, Audio } from "expo-av";
-import { COMMON_APP } from "../../constants";
 import { DU_LIEU_DETAIL } from './../../constants/router';
 
 const LOAD_STATUS = {
@@ -125,74 +121,83 @@ export default class QuanlyDulieu extends Component {
 
   renderItem = ({ item }) => {
     return (
-      <View>
+        <TouchableOpacity
+            onPress={() => this.props.navigation.navigate(DU_LIEU_DETAIL, {data: item})}
+        >
+          <View>
+            <View style={[tw.flexRow, tw.justifyBetween]}>
+              <RkText style={tw.w40} rkType="bold">
+                Nhân viên:
+              </RkText>
+              <RkText style={[tw.flex1, tw.textRight]}>
+                {item.nhanvien_id?.full_name}
+              </RkText>
+            </View>
+            {item.created_at && (
+                <View style={[tw.flexRow, tw.justifyBetween]}>
+                  <RkText style={tw.w40} rkType="bold">
+                    Ngày thu thập:
+                  </RkText>
+                  <RkText style={[tw.flex1, tw.textRight]}>
+                    {moment(item.created_at).format('DD/MM/YYYY HH:mm')}
+                  </RkText>
+                </View>
+            )}
+
+            {item.datasetId && (
+                <View style={[tw.flexRow, tw.justifyBetween]}>
+                  <RkText style={tw.w40} rkType="bold">
+                    Bộ dữ liệu:
+                  </RkText>
+                  <RkText style={[tw.flex1, tw.textRight]}>
+                    {item.datasetId?.dataset_name}
+                  </RkText>
+                </View>
+            )}
+
+            <View style={[tw.flexRow, tw.justifyBetween]}>
+              <RkText style={tw.w40} rkType="bold">
+                Dữ liệu
+              </RkText>
+              <View style={[tw.bgGray800,tw.pX1, tw.pYPx, tw.selfStart,tw.rounded, tw.itemsCenter]}>
+                <RkText style={tw.textWhite}>{item?.hinhanh?.length || 0} ảnh, {item?.video?.length || 0} video, {item?.audio?.length || 0} audio </RkText>
+              </View>
+            </View>
+
+            {/*<View style={[tw.flexRow, tw.justifyBetween]}>
+          <RkText style={[tw.w40]} rkType="bold">
+            Số video:
+          </RkText>
+          <TouchableOpacity
+              style={[tw.bgGray800,tw.pX1, tw.pYPx, tw.selfStart,tw.rounded, tw.itemsCenter]}
+              onPress={() => this.props.navigation.navigate(DU_LIEU_DETAIL, {data: item})}
+          >
+            <RkText style={tw.textWhite}>{item?.video?.length || 0} video</RkText>
+          </TouchableOpacity>
+        </View>
         <View style={[tw.flexRow, tw.justifyBetween]}>
           <RkText style={tw.w40} rkType="bold">
-            Tên nhân viên:
+            Số audio:
           </RkText>
-          <RkText style={[tw.flex1, tw.textRight]}>
-            {item.nhanvien_id?.full_name}
-          </RkText>
-        </View>
-        {item.created_at && (
-          <View style={[tw.flexRow, tw.justifyBetween]}>
-            <RkText style={tw.w40} rkType="bold">
-              Ngày thu thập:
-            </RkText>
-            <RkText style={[tw.flex1, tw.textRight]}>
-              {moment(item.ngayupload).format(CONSTANTS.DATE_FORMAT)}
-            </RkText>
-          </View>
-        )}
+          <TouchableOpacity
+              style={[tw.bgGray800,tw.pX1, tw.pYPx, tw.selfStart,tw.rounded, tw.itemsCenter]}
+              onPress={() => this.props.navigation.navigate(DU_LIEU_DETAIL, {data: item})}
+          >
+            <RkText style={tw.textWhite}>{item?.audio?.length || 0} audio</RkText>
+          </TouchableOpacity>
+        </View>*/}
 
-        {item.hinhanh?.length > 0 && (
-          <View>
-            <RkText style={tw.w40} rkType="bold">
-              Hình ảnh
-            </RkText>
-            <TouchableOpacity 
-              style={[tw.bgGray800,tw.pX1, tw.pYPx, tw.selfStart,tw.rounded, tw.itemsCenter]}
-              onPress={() => this.props.navigation.navigate(DU_LIEU_DETAIL, {data: item})}
-            >
-              <RkText style={tw.textWhite}>Chi tiết</RkText>
-            </TouchableOpacity>
+            {item.ghichu > 0 && (
+                <View>
+                  <RkText style={tw.w40} rkType="bold">
+                    Ghi chú:
+                  </RkText>
+                  <RkText>{item.ghichu}</RkText>
+                </View>
+            )}
           </View>
-        )}
-        {item.video && (
-          <View>
-            <RkText style={[tw.w40]} rkType="bold">
-              Video:
-            </RkText>
-            <TouchableOpacity 
-              style={[tw.bgGray800,tw.pX1, tw.pYPx, tw.selfStart,tw.rounded, tw.itemsCenter]}
-              onPress={() => this.props.navigation.navigate(DU_LIEU_DETAIL, {data: item})}
-            >
-              <RkText style={tw.textWhite}>Chi tiết</RkText>
-            </TouchableOpacity>
-          </View>
-        )}
-        {item.audio && (
-          <View>
-            <RkText style={tw.w40} rkType="bold">
-              Audio:
-            </RkText>
-            <TouchableOpacity 
-              style={[tw.bgGray800,tw.pX1, tw.pYPx, tw.selfStart,tw.rounded, tw.itemsCenter]}
-              onPress={() => this.props.navigation.navigate(DU_LIEU_DETAIL, {data: item})}
-            >
-              <RkText style={tw.textWhite}>Chi tiết</RkText>
-            </TouchableOpacity>
-          </View>
-        )}
-        {item.ghichu > 0 && (
-          <View>
-            <RkText style={tw.w40} rkType="bold">
-              Ghi chú:
-            </RkText>
-            <RkText>{item.ghichu}</RkText>
-          </View>
-        )}
-      </View>
+        </TouchableOpacity>
+
     );
   };
 

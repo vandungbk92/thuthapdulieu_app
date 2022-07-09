@@ -12,6 +12,7 @@ import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import ImageTile from './ImageTile';
 const { width } = Dimensions.get('window')
+import { PLATFORM_IOS } from '../../../../constants/variable';
 
 export default class ImageBrowser extends React.Component {
   constructor(props) {
@@ -55,9 +56,23 @@ export default class ImageBrowser extends React.Component {
       .then(this.processPhotos)*/
   }
 
+  convertPhUriToAssetLibrary = (uri) => {
+    const ext = 'jpg';
+    return `assets-library://asset/asset.${ext}?id=${uri.replace('ph://', '')}&ext=${ext}`;
+  };
+
+  checkPhUri = (uri) => {
+    if (uri.indexOf('ph://') !== -1) return true;
+    else return false;
+  }
+
   processPhotos = (r) => {
     if (this.state.after === r.endCursor) return;
-    let uris = r.assets.map(i=> i.uri) //.map(i=> i.image).map(i=>i.uri)
+    let uris = r.assets.map((i) => {
+      if (PLATFORM_IOS && this.checkPhUri(i.uri))
+        return this.convertPhUriToAssetLibrary(i.uri);
+      else return i.uri;
+    });
     this.setState({
       photos: [...this.state.photos, ...uris],
       after: r.endCursor,

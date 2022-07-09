@@ -10,12 +10,9 @@ import { Camera } from "expo-camera";
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 import { Video } from "expo-av";
 import { tw } from "react-native-tailwindcss";
-import { styleContainer } from "../../../stylesContainer";
 import { KittenTheme } from './../../../../config/theme';
-import {postFile} from '../../../epics-reducers/services/fileServices';
-import { showToast } from "../../../epics-reducers/services/common";
-import moment from 'moment';
-import { create } from "../../../epics-reducers/services/quanlydulieuServices";
+import { styleContainer } from '../../../stylesContainer';
+import {RkText} from "react-native-ui-kitten";
 
 export default function VideoUpload(props) {
   const [camera, setCamera] = React.useState(null);
@@ -33,6 +30,7 @@ export default function VideoUpload(props) {
       setVisible(false);
       setRecord(true);
       let video = await camera.recordAsync();
+      console.log(video, 'videovideovideovideovideo')
       setUri(video.uri);
     } else {
       setRecord(false);
@@ -41,37 +39,8 @@ export default function VideoUpload(props) {
     }
   };
   const uploadVideo = async () => {
-    const currentTime = moment().toISOString();
-    if (props.navigation.state.params.maNhanvien) {
-      const data = await postFile(
-        props.navigation.state.params.maNhanvien,
-        uri,
-        "files",
-        currentTime
-      );
-      if (data) {
-        showToast("Tải lên video thành công!");
-        let arrNameVideo = {};
-        const objFiles = JSON.parse(data.body).files;
-        const arrFilesName = objFiles?.files.map(e => e.filename);
-        arrNameVideo = arrFilesName[0];
-        const params = {
-            video: arrNameVideo,
-            nhanvien_id: props.navigation.state.params.maNhanvien,
-            ngayupload: currentTime,
-            ghichu: props.navigation.state.params.ghichu,
-            tendulieu: props.navigation.state.params.tendulieu,
-
-        }
-        const a = await create(params);
-        props.navigation.goBack();
-      } else {
-        showToast("Tải lên video thất bại! Vui lòng thử lại");
-        setVisible(false);
-      }
-    } else {
-      showToast("Chưa nhập mã bệnh nhân");
-    }
+    props.navigation?.state?.params?.onGoBack(uri);
+    props.navigation.goBack();
   };
 
   return (
@@ -219,3 +188,20 @@ export default function VideoUpload(props) {
     </View>
   );
 }
+
+
+VideoUpload.navigationOptions = ({navigation}) => ({
+  headerLeft: () => (
+    <TouchableOpacity
+      style={styleContainer.headerButton}
+      onPress={() => navigation.goBack(null)}
+    >
+      <Ionicons
+        name="ios-arrow-back"
+        size={20}
+        color={KittenTheme.colors.appColor}
+      />
+    </TouchableOpacity>
+  ),
+  headerTitle: () => <RkText rkType="header4">Video</RkText>,
+});

@@ -1,26 +1,31 @@
 import axios from "axios"
 import {COMMON_APP, API, CONSTANTS} from "../../constants";
 
-function uploadFiles(files) {
+function uploadImages(files, datasetId) {
   const config = {
     headers: {"content-type": "multipart/form-data", "Content-Type": "multipart/form-data"}
   }
-  let path = `${COMMON_APP.HOST_API}${"/api/files"}`
+  let path = `${COMMON_APP.HOST_API}${"/api/uploads"}`
   let dataRes = []
   const uploaders = files.map((file, index) => {
-    const {name, uri} = file;
-    const uriParts = name.split(".");
-    const fileType = uriParts[uriParts.length - 1];
     const formData = new FormData();
-    formData.append("image", {
+    let uri = file.uri || file.file;
+    let fileType = "jpg";
+    let name = `photo.${fileType}`;
+    formData.append("files", {
       uri,
       name,
-      type: `application/${fileType}`,
+      type: `image/${fileType}`,
     });
+    formData.append("type", "image")
+    formData.append("datasetId", datasetId)
+    formData.append("img_type", "upload")
+
     return axios.post(path, formData, config).then(response => {
       const data = response.data;
-      if(data) dataRes = [...dataRes, data.image_id]
+      if(data) dataRes = [...dataRes, data[0]._id]
     }).catch(error => {
+
     });
   });
 
@@ -29,7 +34,40 @@ function uploadFiles(files) {
   }));
 }
 
-function uploadImages(images) {
+function uploadFiles(files, type, datasetId) {
+  const config = {
+    headers: {"content-type": "multipart/form-data", "Content-Type": "multipart/form-data"}
+  }
+  let path = `${COMMON_APP.HOST_API}${"/api/uploads"}`
+  let dataRes = []
+  const uploaders = files.map((file, index) => {
+    const formData = new FormData();
+
+    const filetype = file.split(".").pop();
+    const filename = file.split("/").pop();
+
+    formData.append("files", {
+      uri: file,
+      name: filename,
+      type: filetype
+    });
+    formData.append("type", type)
+    formData.append("datasetId", datasetId)
+
+    return axios.post(path, formData, config).then(response => {
+      const data = response.data;
+      if(data) dataRes = [...dataRes, data[0]._id]
+    }).catch(error => {
+
+    });
+  });
+
+  return axios.all(uploaders).then(axios.spread(function (res1, res2) {
+    return dataRes
+  }));
+}
+
+/*function uploadImages(images) {
   const config = {
     headers: {"content-type": "multipart/form-data", "Content-Type": "multipart/form-data"}
   }
@@ -56,32 +94,8 @@ function uploadImages(images) {
   return axios.all(uploaders).then(axios.spread(function (res1, res2) {
     return dataRes
   }));
-}
+}*/
 
-function deleteFiles(idReq, file) {
-  return axios.delete(`${COMMON_APP.HOST_API_PHAN_HOI}/api/citizen/request/${idReq}/file/${file}`).then(res => {
-    if (res.data) {
-      return res.data;
-    } else {
-      return null;
-    }
-  })
-    .catch(error => {
-      return null;
-    });
-}
 
-function deleteImages(idReq, img) {
-  return axios.delete(`${COMMON_APP.HOST_API_PHAN_HOI}/api/citizen/request/${idReq}/img/${img}`).then(res => {
-    if (res.data) {
-      return res.data;
-    } else {
-      return null;
-    }
-  })
-    .catch(error => {
-      return null;
-    });
-}
 
-export {uploadFiles, uploadImages, deleteFiles, deleteImages}
+export {uploadImages, uploadFiles}

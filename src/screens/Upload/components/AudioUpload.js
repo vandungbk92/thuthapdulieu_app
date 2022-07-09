@@ -14,11 +14,7 @@ import { RkText } from "react-native-ui-kitten";
 import { tw} from "react-native-tailwindcss";
 import {KittenTheme} from "../../../../config/theme";
 import { styleContainer } from "../../../stylesContainer";
-import { showToast } from "../../../epics-reducers/services/common";
-import { postFile } from './../../../epics-reducers/services/fileServices';
-import moment from 'moment';
-import { create } from "../../../epics-reducers/services/quanlydulieuServices";
-
+import AudioPlay1 from '../AudioPlay1';
 
 export default function AudioUpload(props) {
   const [recording, setRecording] = React.useState();
@@ -65,27 +61,8 @@ export default function AudioUpload(props) {
   }
 
   const uploadAudio = async () => {
-    const currentTime = moment().toISOString();
-    const data = await postFile(`${props.navigation.state.params.maNhanvien}`, showRecord.file, 'files', currentTime)
-    if(data){
-      showToast("Tải lên audio thành công!");
-      let arrNameAudio = {};
-      const objFiles = JSON.parse(data.body).files;
-      const arrFilesName = objFiles?.files.map(e => e.filename);
-      arrNameAudio = arrFilesName[0];
-      const params = {
-          audio: arrNameAudio,
-          nhanvien_id: props.navigation.state.params.maNhanvien,
-          ngayupload: currentTime,
-          ghichu: props.navigation.state.params.ghichu,
-          tendulieu: props.navigation.state.params.tendulieu,
-      }
-      const a = await create(params);
-      showRecord.sound.unloadAsync()
-      props.navigation.goBack();
-    }else{
-      showToast("Tải lên audio thất bại! Vui lòng thử lại");
-    }
+    props.navigation?.state?.params?.onGoBack(showRecord.file);
+    props.navigation.goBack();
   }
 
   function getDurationFormatted(millis) {
@@ -102,48 +79,18 @@ export default function AudioUpload(props) {
 
   function getRecordingLines() {
     if (showRecord)
-      return (
-        <View style={[tw.flexRow, tw.justifyBetween, tw.itemsCenter, tw.bgWhite, tw.mX2, tw.pX4,{ height: 50, borderRadius: 16}]}>
-          <RkText>
-            Bản ghi - {showRecord.duration}
-          </RkText>
-          <View style={tw.flexRow}>
-            <TouchableOpacity
-              onPress={playSound}
-              style={tw.flexRow}
-            >
-              <Ionicons
-                name={"play"}
-                size={24}
-                color={KittenTheme.colors.appColor}
-                style={tw.mX1}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={uploadAudio}
-              style={tw.flexRow}
-            >
-              <Ionicons
-                name="cloud-upload-outline"
-                size={24}
-                color={KittenTheme.colors.appColor}
-                style={tw.mX1}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
+      return <AudioPlay1 data={showRecord.file} getUriFile={uploadAudio} record={true}/>
     else return <View />;
   }
 
   return (
     <View style={styleContainer.containerContent}>
       <TouchableOpacity
-        style={tw.selfCenter}
+        style={[tw.flexCol, tw.itemsCenter, tw.mY4]}
         onPress={recording ? stopRecording : startRecording}
       >
         <View
-          style={[tw.justifyCenter, tw.itemsCenter, tw.mY3, tw.mX6, tw.borderRed500, 
+          style={[tw.justifyCenter, tw.itemsCenter, tw.mY3, tw.mX6, tw.borderRed500,
             tw.border, {
             borderRadius: 35,
             backgroundColor: recording
@@ -154,7 +101,9 @@ export default function AudioUpload(props) {
           }]}
         >
           {recording ? (
-            <FontAwesome name="square" size={32} color="red" />
+            <View>
+              <FontAwesome name="square" size={32} color="red" />
+            </View>
           ) : (
             <FontAwesome
               name="microphone"
@@ -163,8 +112,29 @@ export default function AudioUpload(props) {
             />
           )}
         </View>
+        <View style={[tw.justifyCenter]}>
+          {
+            recording ? <RkText rkType="link">Đang ghi âm dữ liệu ...</RkText> : null
+          }
+        </View>
       </TouchableOpacity>
       {getRecordingLines()}
     </View>
   )
 }
+
+AudioUpload.navigationOptions = ({navigation}) => ({
+  headerLeft: () => (
+    <TouchableOpacity
+      style={styleContainer.headerButton}
+      onPress={() => navigation.goBack(null)}
+    >
+      <Ionicons
+        name="ios-arrow-back"
+        size={20}
+        color={KittenTheme.colors.appColor}
+      />
+    </TouchableOpacity>
+  ),
+  headerTitle: () => <RkText rkType="header4">Audio</RkText>,
+});

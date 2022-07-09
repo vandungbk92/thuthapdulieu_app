@@ -2,7 +2,6 @@ import axios from 'axios';
 import { COMMON_APP, API, CONSTANTS } from '../../constants';
 
 export function userLogin(data) {
-  console.log('COMMON_APP.HOST_API', COMMON_APP.HOST_API)
   return axios
     .post(`${COMMON_APP.HOST_API}${API.USERS_LOGIN}`, data)
     .then((res) => {
@@ -35,6 +34,21 @@ export function getUserInfo() {
 export function updateUserInfo(id, data) {
   return axios
     .put(`${COMMON_APP.HOST_API}${API.USERS}/${id}`, data)
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return null;
+      }
+    })
+    .catch((error) => {
+      return null;
+    });
+}
+
+export function getAllDataset(page, limit, params) {
+  return axios
+    .get(`${COMMON_APP.HOST_API}${API.DATASET_QUERY.format(page, limit, '')}`, { params })
     .then((res) => {
       if (res.data) {
         return res.data;

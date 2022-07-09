@@ -11,6 +11,7 @@ export const API = {
 
   SOI_DA: '/api/soi-da',
   SOI_DA_QUERY: '/api/soi-da?page={0}&limit={1}{2}',
+  DATASET_QUERY: '/api/dataset?page={0}&limit={1}{2}',
 
   NGHE_PHOI: '/api/nghe-phoi',
   NGHE_PHOI_QUERY: '/api/nghe-phoi?page={0}&limit={1}{2}',

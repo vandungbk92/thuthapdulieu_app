@@ -731,8 +731,8 @@ class SectionedMultiSelect extends PureComponent {
                 </View>
               }
 
-              <ScrollView
-                keyboardShouldPersistTaps="always"
+              <View
+                // keyboardShouldPersistTaps="always"
                 style={[{ paddingHorizontal: 12, flex: 1 }, styles.scrollView]}
               >
                 <View>
@@ -761,7 +761,7 @@ class SectionedMultiSelect extends PureComponent {
                     </View>
                   }
                 </View>
-              </ScrollView>
+              </View>
               <View style={{ flexDirection: "row" }}>
                 {showCancelButton && <View style={{ flex: 1, paddingHorizontal: 10 }}>
                   <GradientButton

@@ -6,10 +6,12 @@ import I18n from "../src/utilities/I18n";
 import {fetchLoginFailure} from "../src/epics-reducers/fetch/fetch-login.duck";
 import {fetchTokenDecode} from "../src/epics-reducers/fetch/fetch-token.duck";
 import {fetchUsersInfoFailure} from "../src/epics-reducers/fetch/fetch-users-info.duck";
+import { LogBox } from "react-native";
 
 export const extendFunction = (store) => {
   let apiReq = 0, apiRes = 0
-  // console.disableYellowBox = true;
+  console.disableYellowBox = true;
+  LogBox.ignoreAllLogs();
   axios.interceptors.request.use(function (config) {
     if (__DEV__) console.log(config.method, config.url, JSON.stringify(config.data))
     let isLoading = store.getState().isLoading

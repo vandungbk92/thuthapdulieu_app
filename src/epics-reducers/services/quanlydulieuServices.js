@@ -20,8 +20,8 @@ export function create(data) {
   return axios
     .post(`${COMMON_APP.HOST_API}${API.QUAN_LY_DU_LIEU}`, data)
     .then((res) => {
-      if (res.data && res.data.docs) {
-        return res.data.docs;
+      if (res.data) {
+        return res.data;
       } else {
         return null;
       }

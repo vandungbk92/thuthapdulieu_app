@@ -3,7 +3,7 @@ import {RkText} from "react-native-ui-kitten";
 import {TouchableOpacity, View, SafeAreaView, StyleSheet} from "react-native";
 import {styleContainer} from "../../stylesContainer";
 import {CONSTANTS} from "../../constants"
-import {getUserInfo, updateUserInfo} from "../../epics-reducers/services/userServices";
+import {getUserInfo, updateUserInfo, getAllDataset} from "../../epics-reducers/services/userServices";
 import GradientButton from "../base/gradientButton"
 import {Ionicons} from "@expo/vector-icons";
 import {KittenTheme} from "../../../config/theme";
@@ -17,6 +17,7 @@ import Avatar from "../base/avatar";
 import {LOGIN_PAGE} from "../../constants/router";
 import I18n from '../../utilities/I18n';
 import KeyboardAwareScrollView from '@pietile-native-kit/keyboard-aware-scrollview';
+import { tw } from 'react-native-tailwindcss';
 
 class UserProfile extends Component {
   static navigationOptions = ({navigation}) => {
@@ -31,7 +32,8 @@ class UserProfile extends Component {
         <RkText rkType="header4" style={styleContainer.headerTitle}>{I18n.t('citizen_info')}</RkText>
       ),
       headerRight: () => (
-        <TouchableOpacity style={styleContainer.headerButton} onPress={() => params ? params.handleRightPress(params.editable) : null}>
+        <TouchableOpacity style={styleContainer.headerButton}
+                          onPress={() => params ? params.handleRightPress(params.editable) : null}>
           {params ? params.renderRightIcon(params.editable) : null}
         </TouchableOpacity>
       ),
@@ -41,9 +43,10 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInfo: {full_name: "", email: "", phone: ""},
+      userInfo: {full_name: "", email: "", phone: "", datasetId: ""},
       profileChanged: false,
       editable: false,
+      dsDataset: []
     };
   }
 
@@ -57,7 +60,7 @@ class UserProfile extends Component {
     })
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.navigationSubscription = this.props.navigation.addListener('willFocus', async () => {
       let isFocused = this.props.navigation.isFocused();
       if (isFocused) {
@@ -69,6 +72,10 @@ class UserProfile extends Component {
         }
       }
     });
+    let dsDataset = await getAllDataset(1, 0)
+    if (dsDataset) {
+      this.setState({dsDataset: dsDataset.docs})
+    }
   }
 
   componentWillUnmount() {
@@ -91,7 +98,9 @@ class UserProfile extends Component {
       full_name: this.state.userInfo.full_name,
       email: this.state.userInfo.email,
       phone: this.state.userInfo.phone,
+      datasetId: this.state.userInfo.datasetId
     }
+    console.log(dataReq, 'dataReqdataReqdataReq')
     let userInfo = await updateUserInfo(this.state.userInfo._id, dataReq)
     if (userInfo) {
       this.state.userInfo = userInfo
@@ -127,7 +136,7 @@ class UserProfile extends Component {
     )
   }
 
-  renderRightIcon = () =>  (
+  renderRightIcon = () => (
     <Ionicons name={this.state.editable ? "md-checkmark" : "md-create"} size={20}
               color={KittenTheme.colors.appColor}/>
   )
@@ -139,10 +148,11 @@ class UserProfile extends Component {
   }
 
   render() {
+    console.log([this.state.userInfo.datasetId || ""], '[this.state.userInfo.datasetId || ""]')
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styleContainer.containerContent}>
         <KeyboardAwareScrollView>
-          <View style={styles.section}>
+          <View style={[tw.p4]}>
             <Avatar img={CONSTANTS.IMAGE_PROFILE}/>
             <View style={{marginBottom: 20}}>
               <RkText rkType="primary1" style={{alignSelf: 'center'}}>{this.state.userInfo.username}</RkText>
@@ -186,6 +196,35 @@ class UserProfile extends Component {
                                                           color={KittenTheme.colors.appColor}/>}
 
             />
+
+            <FormGroup
+              id="datasetId"
+              type={CONSTANTS.SELECT}
+              value={[
+                {
+                  display: CONSTANTS.NONE,
+                  children: this.state.dsDataset,
+                },
+              ]}
+              labelIcon={<MaterialCommunityIcons name="email-open" size={20}
+                                                 color={KittenTheme.colors.appColor}/>}
+              single={true}
+              subKey="children"
+              required={false}
+              displayKey="dataset_name"
+              selectText="Bộ dữ liệu"
+              selectedItems={[this.state.userInfo.datasetId || ""]}
+              showCancelButton={true}
+              onCancel={(id, selected) => {
+              }}
+              readOnly={!this.state.editable}
+              editable={this.state.editable}
+              onConfirm={(id, selected) => {
+                let {userInfo} = this.state;
+                userInfo.datasetId = selected[0]._id
+                this.setState({userInfo, profileChanged: true})
+              }}
+            />
           </View>
           <View style={styles.footer}>
             <GradientButton
@@ -195,7 +234,7 @@ class UserProfile extends Component {
             />
           </View>
         </KeyboardAwareScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
 }

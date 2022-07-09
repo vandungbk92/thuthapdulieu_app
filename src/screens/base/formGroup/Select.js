@@ -81,7 +81,7 @@ export class Select extends Component {
         valueShow.name += (item.name + ', ')
       })
     }
-    //console.log(valueShow, 'valueShow')
+    // console.log(valueShow, 'valueShow')
     return (
       <View style={[styles.viewContainer, styleContainer.boxShadow, props.containerStyle]}>
         {props.labelIcon ? <View style={{ flex: 1, alignSelf: "center", }}>
@@ -93,7 +93,7 @@ export class Select extends Component {
               <RkText rkType="primary2">{props.selectText}<Space /></RkText>
             </View>
             <View style={{ flex: 1 }}>
-              <RkText rkType="primary2 disabled" style={{ textAlign: 'right' }}>{valueShow.name || ""}</RkText>
+              <RkText rkType="primary2 disabled" style={{ textAlign: 'right' }}>{valueShow.name || valueShow[props.displayKey] || ""}</RkText>
             </View>
           </View>
             :

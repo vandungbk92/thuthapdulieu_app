@@ -38,36 +38,36 @@ export default class Home extends React.Component {
 
     this.state = {
       items: [
-        {
-          icon: 'chess-king',
-          title: 'NỘI SOI TAI',
-          router: NOISOI_TAI,
-          description: 'Thu thập dữ liệu nội soi tai',
-        },
+        // {
+        //   icon: 'chess-king',
+        //   title: 'NỘI SOI TAI',
+        //   router: NOISOI_TAI,
+        //   description: 'Thu thập dữ liệu nội soi tai',
+        // },
         // {
         //   icon: 'chess-queen',
         //   title: 'NỘI SOI MŨI',
         //   router: NOISOI_MUI,
         //   description: 'Thu thập dữ liệu nội soi mũi',
         // },
-        {
-          icon: 'chess-knight',
-          title: 'NỘI SOI HỌNG',
-          router: NOISOI_HONG,
-          description: 'Thu thập dữ liệu nội soi họng',
-        },
-        {
-          icon: 'chess-rook',
-          title: 'SOI DA',
-          router: SOI_DA,
-          description: 'Thu thập dữ liệu soi da',
-        },
-        {
-          icon: 'chess-pawn',
-          title: 'NGHE PHỔI',
-          router: NGHE_PHOI,
-          description: 'Thu thập dữ liệu nghe phổi',
-        },
+        // {
+        //   icon: 'chess-knight',
+        //   title: 'NỘI SOI HỌNG',
+        //   router: NOISOI_HONG,
+        //   description: 'Thu thập dữ liệu nội soi họng',
+        // },
+        // {
+        //   icon: 'chess-rook',
+        //   title: 'SOI DA',
+        //   router: SOI_DA,
+        //   description: 'Thu thập dữ liệu soi da',
+        // },
+        // {
+        //   icon: 'chess-pawn',
+        //   title: 'NGHE PHỔI',
+        //   router: NGHE_PHOI,
+        //   description: 'Thu thập dữ liệu nghe phổi',
+        // },
         {
           icon: 'file-upload',
           title: 'UPLOAD DỮ LIỆU',
