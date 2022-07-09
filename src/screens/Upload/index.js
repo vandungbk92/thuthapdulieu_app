@@ -173,7 +173,7 @@ class UploadScreen extends React.Component {
         video = await uploadFiles(videoUpload, 'video', this.state.datasetId);
       }
       if(audioUpload.length){
-        audio = await uploadFiles(videoUpload, 'audio', this.state.datasetId);
+        audio = await uploadFiles(audioUpload, 'audio', this.state.datasetId);
       }
 
       let dataReq = {
