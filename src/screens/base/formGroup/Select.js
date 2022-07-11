@@ -43,6 +43,7 @@ export class Select extends Component {
         this.setState({ selectedItems: copy })
       }
     }
+    return null
   }
 
   onSelectedItemsChange(id, selected) {

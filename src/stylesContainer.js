@@ -142,7 +142,7 @@ export const styleContainer = RkStyleSheet.create(theme => ({
     backgroundColor: "#fff"
   },
   headerButton: {
-    paddingVertical: PLATFORM_IOS ? 0 : 20,
+    paddingVertical: 0,
     paddingHorizontal: 20,
   },
   headerTitle: {

@@ -19,11 +19,15 @@ import {Gallery} from '../base/gallery';
 import FormGroup from "../base/formGroup";
 import {CONSTANTS} from "../../constants";
 import {IMAGE_BROWSER_PAGE, VIEW_IMAGE_PAGE, VIDEO_PAGE, AUDIO_PAGE} from "../../constants/router";
-import {postImages} from "../../epics-reducers/services/fileServices";
+import {postFile, postImages} from "../../epics-reducers/services/fileServices";
 import {getAllDataset, getUserInfo} from "../../epics-reducers/services/userServices";
 import AudioPlay1 from './AudioPlay1'
 import {uploadFiles, uploadImages} from "../../epics-reducers/services/fileImageServices";
 import {create} from "../../epics-reducers/services/quanlydulieuServices";
+import VideoPlay from "../QuanlyDulieu/VideoPlay";
+
+import {fetchLoading} from "../../epics-reducers/fetch/fetch-loading.duck";
+
 
 class UploadScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
@@ -169,11 +173,18 @@ class UploadScreen extends React.Component {
       if (imagesUpload.length) {
         hinhanh = await uploadImages(imagesUpload,  this.state.datasetId);
       }
+      if(videoUpload.length || audioUpload.length){
+        this.props.dispatch(fetchLoading(true))
+      }
       if(videoUpload.length){
-        video = await uploadFiles(videoUpload, 'video', this.state.datasetId);
+        video = await postFile(videoUpload, 'video', this.state.datasetId);
       }
       if(audioUpload.length){
-        audio = await uploadFiles(audioUpload, 'audio', this.state.datasetId);
+        audio = await postFile(audioUpload, 'audio', this.state.datasetId);
+      }
+
+      if(videoUpload.length || audioUpload.length){
+        this.props.dispatch(fetchLoading(false))
       }
 
       let dataReq = {
@@ -253,7 +264,6 @@ class UploadScreen extends React.Component {
 
   render() {
     let {images, videoUpload, audioUpload} = this.state;
-    console.log(videoUpload,audioUpload, 'videoUploadvideoUpload')
     let options = [
       <RkText>{I18n.t('reject')}</RkText>,
       <View style={[tw.flexRow, tw.itemsCenter]}>

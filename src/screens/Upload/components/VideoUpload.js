@@ -13,7 +13,7 @@ import { tw } from "react-native-tailwindcss";
 import { KittenTheme } from './../../../../config/theme';
 import { styleContainer } from '../../../stylesContainer';
 import {RkText} from "react-native-ui-kitten";
-
+import VideoPlay from '../../QuanlyDulieu/VideoPlay'
 export default function VideoUpload(props) {
   const [camera, setCamera] = React.useState(null);
   const [record, setRecord] = React.useState(null);
@@ -23,6 +23,16 @@ export default function VideoUpload(props) {
   const [status, setStatus] = React.useState({});
   const [time, setTime] = React.useState(0);
   const video = React.useRef(null);
+
+  const [hasPermission, setHasPermission] = React.useState(null);
+
+  React.useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      console.log(status, 'statusstatusstatusstatusstatus')
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
 
 
   const handleCamera = async () => {
@@ -43,6 +53,12 @@ export default function VideoUpload(props) {
     props.navigation.goBack();
   };
 
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
   return (
     <View style={{ flex: 1 }}>
       {visible ? (

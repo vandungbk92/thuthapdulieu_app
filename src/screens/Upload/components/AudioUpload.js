@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-} from "react-native";
-import {
-  FontAwesome,
-  Ionicons,
-
-} from "@expo/vector-icons";
+import { View, TouchableOpacity } from "react-native";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import { RkText } from "react-native-ui-kitten";
 import { tw} from "react-native-tailwindcss";

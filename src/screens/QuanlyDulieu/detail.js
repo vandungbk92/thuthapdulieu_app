@@ -110,13 +110,14 @@ class DulieuDetail extends React.Component {
                   <RkText rkType="header6">Video</RkText>
                   {
                     data?.video.map((video, idx) => {
+                      console.log(video.video_uri, 'video.video_uri')
                       return <View key={idx}>
                         <Video
                           style={{width: 350, height: 300, marginTop: 10}}
                           source={{uri: video.video_uri}}
                           useNativeControls
                           resizeMode="contain"
-                          isLooping={true}
+                          isLooping={false}
                         />
                       </View>
                     })
